@@ -48,25 +48,6 @@ from receptari import*
 from interpret import*
 
 
-def help():
-    print
-    print 'Ordres disponibles:'
-    print
-    print ' ** producte <nom> --> Afegeix un producte al receptari de nom <nom> \n'
-    print ' ** recepta <nom> --> Afegeix una recepta al receptari que té nom <nom> \n'
-    print " ** ingredient <nomp> <nomr> <qua> --> Afegeix <qua> grams de l'ingredient de"
-    print "                                      nom <nomp> al la recepta <nomr> \n"
-    print " ** print <ent> [<nom>] --> Escriu per pantalla segons el valor de <ent>. Si"
-    print "                           <ent> és: \n"
-    print "     ** receptes --> Escriu la llista de noms de receptes del receptari \n"
-    print "     ** productes --> Escriu la llista de noms de producte del receptari \n"
-    print "     ** recepta --> Escriu els ingredients i la quantitat que intervenen en la"
-    print "                  recepta de nom <nom>\n"
-    print "     ** receptes-ing --> Escriu la llista de noms de recepta en les que participa"
-    print "                       l’ingredient anomenat <nom> \n"
-    print " ** surt --> Acaba l'execució del programa"
-
-
 def printlist(ent = str(), nom = str()):
     if ent == 'receptes':
         print r.receptes()
@@ -100,7 +81,6 @@ if __name__ == '__main__':
     i.afegeix_ordre('recepta', r.afegeix_recepta)
     i.afegeix_ordre('ingredient', r.afegeix_ingredient_recepta)
     i.afegeix_ordre('print', printlist)
-    i.afegeix_ordre('help', help)
 
     print "Recorda consultar el menu d'ajuda amb la comanda **help** per qualsevol dubte"
     print

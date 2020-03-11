@@ -98,8 +98,8 @@ class Interpret(object):
         else:
 
             self._dcom[nomc] = ordre
-
-
+    
+    
     def run(self):
         '''
         Arrenca l’execució d’aquest intèrpret d’ordres. L’intèrpret s’executa indefinidament fins
@@ -109,8 +109,7 @@ class Interpret(object):
         litza separant els mots que el formen. El primer mot considera que és un nom d’ordre i la
         resta de mots els paràmetres d’aquesta ordre. Finalment executa la funció corresponent a
         l’ordre i li passa com a paràmetre la resta de mots en una llista.
-        '''
-
+        '''      
         while True:
             try:
                 print self._prompt,
@@ -132,10 +131,50 @@ class Interpret(object):
                 elif ll[0] == 'surt' or ll[0] == 'Surt':
                     break
 
+                elif ll[0] == 'help' or ll[0] == 'Help':
+
+                    print
+                    ll = self._dcom.keys()
+                    ll.append('surt')
+                    ll.append('help')
+                    print 'Ordres disponibles:'
+                    print
+                    for element in sorted(ll):
+                        if element == 'help':
+                            print " ** help --> Menú de consulta d'ordres"
+
+                        elif element == 'producte':
+                            print ' ** producte <nom> --> Afegeix un producte al receptari de nom <nom> \n'
+
+                        elif element == 'recepta':                            
+                            print ' ** recepta <nom> --> Afegeix una recepta al receptari que té nom <nom> \n'
+                            
+                        elif element == 'ingredient':
+                            print " ** ingredient <nomp> <nomr> <qua> --> Afegeix <qua> grams de l'ingredient de"
+                            print "                                       nom <nomp> al la recepta <nomr> \n"
+
+                        elif element == 'print':
+                            print " ** print <ent> [<nom>] --> Escriu per pantalla segons el valor de <ent>. Si"
+                            print "                            <ent> és: \n"
+                            print "     ** receptes --> Escriu la llista de noms de receptes del receptari \n"
+                            print "     ** productes --> Escriu la llista de noms de producte del receptari \n"
+                            print "     ** recepta --> Escriu els ingredients i la quantitat que intervenen en la"
+                            print "                    recepta de nom <nom>\n"
+
+                        elif element == 'receptes-ing':
+                            print "     ** receptes-ing --> Escriu la llista de noms de recepta en les que participa"
+                            print "                         l’ingredient anomenat <nom> \n"
+
+                        elif element == 'surt':
+                            print " ** surt --> Acaba l'execució del programa"  
+                    print
+                    
                 else:
                     print "Comanda no coneguda"
 
-                print
+                    print
 
             except:
                 print "Ordres i/o arguments no vàlids. Per més informació executi la comanda **help**\n"
+                
+
