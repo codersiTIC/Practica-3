@@ -81,7 +81,10 @@ if __name__ == '__main__':
     i.afegeix_ordre('recepta', r.afegeix_recepta)
     i.afegeix_ordre('ingredient', r.afegeix_ingredient_recepta)
     i.afegeix_ordre('print', printlist)
+    i.afegeix_ordre('desa', r.desa)
+    i.afegeix_ordre('recupera', r.recupera)
 
     print "Recorda consultar el menu d'ajuda amb la comanda **help** per qualsevol dubte"
     print
     i.run()
+

@@ -98,8 +98,8 @@ class Interpret(object):
         else:
 
             self._dcom[nomc] = ordre
-    
-    
+
+
     def run(self):
         '''
         Arrenca l’execució d’aquest intèrpret d’ordres. L’intèrpret s’executa indefinidament fins
@@ -109,7 +109,8 @@ class Interpret(object):
         litza separant els mots que el formen. El primer mot considera que és un nom d’ordre i la
         resta de mots els paràmetres d’aquesta ordre. Finalment executa la funció corresponent a
         l’ordre i li passa com a paràmetre la resta de mots en una llista.
-        '''      
+        '''
+
         while True:
             try:
                 print self._prompt,
@@ -120,7 +121,7 @@ class Interpret(object):
                 if len(ordres) == 3:
                     ordres[0], ordres[1] = ordres[1], ordres[0]
                     ordres[2] = int(ordres[2])
-
+                
                 if self._dcom.has_key(ll[0]):
                     if len(ordres) == 0:
                         self._dcom[ll[0]]()
@@ -132,25 +133,24 @@ class Interpret(object):
                     break
 
                 elif ll[0] == 'help' or ll[0] == 'Help':
-
                     print
                     ll = self._dcom.keys()
-                    ll.append('surt')
-                    ll.append('help')
+                    ll.append('surt'); ll.append('help')
+                    ll = sorted(ll)
+                    print ll
+                    print
                     print 'Ordres disponibles:'
                     print
-                    for element in sorted(ll):
-                        if element == 'help':
-                            print " ** help --> Menú de consulta d'ordres"
-
-                        elif element == 'producte':
+                    for element in ll:
+                        if element == 'producte':                            
                             print ' ** producte <nom> --> Afegeix un producte al receptari de nom <nom> \n'
-
+                            
                         elif element == 'recepta':                            
                             print ' ** recepta <nom> --> Afegeix una recepta al receptari que té nom <nom> \n'
                             
                         elif element == 'ingredient':
                             print " ** ingredient <nomp> <nomr> <qua> --> Afegeix <qua> grams de l'ingredient de"
+                            
                             print "                                       nom <nomp> al la recepta <nomr> \n"
 
                         elif element == 'print':
@@ -160,21 +160,24 @@ class Interpret(object):
                             print "     ** productes --> Escriu la llista de noms de producte del receptari \n"
                             print "     ** recepta --> Escriu els ingredients i la quantitat que intervenen en la"
                             print "                    recepta de nom <nom>\n"
+                            print "     ** receptes-ing --> Escriu la llista de noms de recepta en que participa"
+                            print "                       l’ingredient anomenat <nom> \n"
 
-                        elif element == 'receptes-ing':
-                            print "     ** receptes-ing --> Escriu la llista de noms de recepta en les que participa"
-                            print "                         l’ingredient anomenat <nom> \n"
+                        elif element == 'surt':                            
+                            print " ** surt --> Acaba l'execució del programa"
 
-                        elif element == 'surt':
-                            print " ** surt --> Acaba l'execució del programa"  
-                    print
-                    
+                        elif element == 'desa':
+                            print " ** desa <nomf> --> Desa les dades del receptari en un fitxer de nom <nomf> \n"
+
+                        elif element == 'recupera':
+                            print " ** recupera <nomf> --> Recupera les dades del fitxer <nomf>. En cas que el" 
+                            print "                        fitxer contingui productes o receptes que ja existeixen,"
+                            print "                        no les incorpora de nou i les ignora \n"
+
                 else:
                     print "Comanda no coneguda"
 
-                    print
+                print
 
             except:
                 print "Ordres i/o arguments no vàlids. Per més informació executi la comanda **help**\n"
-                
-
