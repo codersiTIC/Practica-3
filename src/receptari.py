@@ -290,7 +290,101 @@ class Receptari(object):
         @@
         @@
         '''
+
+        '''
+        TASCA 6
+        alpha Es una funci´o sense par`ametres que es cridada pel m`etode ´ run just abans de comen¸car.
+        omega Es una funci´o sense par`ametres que es cridada pel m`etode ´ run just abans d’acabar.
+        Tamb´e afegirem dos m`etodes m´es a la classe que serviran per gestionar aquests atributs:
+        def set begin(self, f):
+        ”””
+        Fixa la funci´o ‘f‘ com l’inicialitzador que es cridar`a just
+        abans d’arrencar l’interpret. ‘f‘ ´es una funci´o sense
+        par`ametres.
+        ”””
+        pass
+        def set end(self, f):
+        ””” perfecte ok tu fas la tasca 6 no
+        Fixa la funci´o ‘f‘ com el finalitzador que es cridar`a just
+        abans d’acabar l’execuci´o de l’int`erpret. ‘f‘ ´es una funci´o sense
+        par`ametres.
+        ”””
+        pass
+        '''
         with open(f+'.txt') as fe:
             receptari = fe.readlines()
 
-            return receptari
+            #l = [line.replace('\n', '') for line in receptari]
+            #l2 = ' '.join(l).split('@@') vaig sisi sisi
+            #print l2 okspero tens guartat l'archiu prova .txt veritat?ok
+
+
+            s = ''.join(receptari).split('@@')# aqui ? es k he provat moltes maneres
+
+
+            # I si millor fem un for i si un element és igual a '' l'eliminem
+            # Ho dic per no liar-nos, com ja ho tens fet així. Pq? si son mutables
+            # si pero no podem iterar per borrarelements
+
+
+            #print s
+            ll = ''.join(s)
+            #print
+
+            l = [i.split('\n') for i in s]
+            #print l
+
+
+            #print
+            del(l[-1])
+            del(l[-1])
+            #print
+
+            #print l
+
+
+
+
+            s = []
+            for i in l:
+                j = []
+                for k in i:
+                    if k != '':
+                        j.append(k)
+
+                s.append(j)
+            print s
+
+            #lo unic k m'agaradaria millorar es aixo de adalt, fero tot en una comprehension list xd, sisi esta perfecte xd ok ara ho busco un min
+            #lo k pasa es k no ser com fero amb "matrius" segur k es pot. Jo sincerament crec que està bé. Ara provem de millorar-ho si vols i jo
+
+            j = 0  # Ah.
+            for i in s:
+                if j == 0: # afegir productes
+                    for producte in i:
+                        self.afegeix_producte(producte)
+
+
+                else:
+                    c = 0
+                    for recepta in i:
+
+                        if c == 0:
+                            nomr = recepta
+                            self.afegeix_recepta(nomr)
+
+                        else:
+                            r_ing = recepta.split(' ') # [producte, quantitat]
+                            print r_ing
+                            self.afegeix_ingredient_recepta(nomr, r_ing[0], r_ing[1])
+                        c += 1 #Suuuuuu
+                j += 1
+
+
+''
+
+
+if __name__ == '__main__':
+    r = Receptari()
+    r.recupera('prova')
+    pass
