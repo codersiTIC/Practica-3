@@ -313,37 +313,11 @@ class Receptari(object):
         '''
         with open(f+'.txt') as fe:
             receptari = fe.readlines()
-
-            #l = [line.replace('\n', '') for line in receptari]
-            #l2 = ' '.join(l).split('@@') vaig sisi sisi
-            #print l2 okspero tens guartat l'archiu prova .txt veritat?ok
-
-
-            s = ''.join(receptari).split('@@')# aqui ? es k he provat moltes maneres
-
-
-            # I si millor fem un for i si un element és igual a '' l'eliminem
-            # Ho dic per no liar-nos, com ja ho tens fet així. Pq? si son mutables
-            # si pero no podem iterar per borrarelements
-
-
-            #print s
+            s = ''.join(receptari).split('@@')
             ll = ''.join(s)
-            #print
-
             l = [i.split('\n') for i in s]
-            #print l
-
-
-            #print
             del(l[-1])
             del(l[-1])
-            #print
-
-            #print l
-
-
-
 
             s = []
             for i in l:
@@ -355,10 +329,7 @@ class Receptari(object):
                 s.append(j)
             print s
 
-            #lo unic k m'agaradaria millorar es aixo de adalt, fero tot en una comprehension list xd, sisi esta perfecte xd ok ara ho busco un min
-            #lo k pasa es k no ser com fero amb "matrius" segur k es pot. Jo sincerament crec que està bé. Ara provem de millorar-ho si vols i jo
-
-            j = 0  # Ah.
+            j = 0
             for i in s:
                 if j == 0: # afegir productes
                     for producte in i:
@@ -369,19 +340,17 @@ class Receptari(object):
                     c = 0
                     for recepta in i:
 
-                        if c == 0:
+                        if c == 0: # afegir recepta
                             nomr = recepta
                             self.afegeix_recepta(nomr)
 
-                        else:
+                        else: # afegir ingredients recepta
                             r_ing = recepta.split(' ') # [producte, quantitat]
                             print r_ing
                             self.afegeix_ingredient_recepta(nomr, r_ing[0], r_ing[1])
-                        c += 1 #Suuuuuu
+                        c += 1
                 j += 1
 
-
-''
 
 
 if __name__ == '__main__':

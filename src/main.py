@@ -44,6 +44,13 @@ print <ent> [<nom>]
     Acaba l’execució del programa.
 '''
 
+'''
+??
+
+'''
+
+
+
 from receptari import*
 from interpret import*
 
