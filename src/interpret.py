@@ -121,7 +121,7 @@ class Interpret(object):
                 if len(ordres) == 3:
                     ordres[0], ordres[1] = ordres[1], ordres[0]
                     ordres[2] = int(ordres[2])
-
+                
                 if self._dcom.has_key(ll[0]):
                     if len(ordres) == 0:
                         self._dcom[ll[0]]()

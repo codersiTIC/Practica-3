@@ -244,3 +244,40 @@ class Receptari(object):
         [('Farina', 500), ('Llet', 300), ('Sucre', 400)]
         '''
         return self._receptes[nomr]._ingredients
+
+    def desa (self, f):
+        '''
+        Desa les dades en el fitxer de text de nom ⟨nomf⟩.
+        '''
+
+        with open(f+'.txt', 'w') as fe:
+            productes = self.ingredients()
+
+            for i in productes:
+                fe.write(i+'\n')
+
+
+
+    def obre(self, f):
+        '''
+        Recupera les dades del fitxer de text de nom ⟨nomf⟩.
+        En cas que el fitxer contingui productes o receptes que ja existien,
+        no les incorpora de nou i les ignora.
+
+        oli
+        pa tom`aquet
+        @@
+        pa−tom
+        pa 250
+        tom`aquet 40
+        oli 10
+        @@
+        pa−oli
+        pa 250
+        oli 10
+        @@ @@
+        '''
+        with open(f+'.txt') as fe:
+            receptari = fe.readlines()
+
+        pass
