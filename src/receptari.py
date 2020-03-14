@@ -252,32 +252,45 @@ class Receptari(object):
 
         with open(f+'.txt', 'w') as fe:
             productes = self.ingredients()
+            receptes = self.receptes()
 
-            for i in productes:
-                fe.write(i+'\n')
+            for p in productes:
+                fe.write(p+'\n')
 
+            fe.write('@@'+'\n')
 
+            for r in receptes:
+                fe.write(r+'\n')
 
-    def obre(self, f):
+                for r_ing in self.recepta(r):
+                    fe.write(r_ing[0]+' '+str(r_ing[1])+'\n')
+
+                fe.write('@@'+'\n')
+
+            fe.write('@@'+'\n')
+
+    def recupera(self, f):
         '''
         Recupera les dades del fitxer de text de nom ⟨nomf⟩.
         En cas que el fitxer contingui productes o receptes que ja existien,
         no les incorpora de nou i les ignora.
 
         oli
-        pa tom`aquet
+        pa
+        tomàquet
         @@
         pa−tom
         pa 250
-        tom`aquet 40
+        tomàquet 40
         oli 10
         @@
         pa−oli
         pa 250
         oli 10
-        @@ @@
+        @@
+        @@
         '''
         with open(f+'.txt') as fe:
             receptari = fe.readlines()
 
-        pass
+            return receptari

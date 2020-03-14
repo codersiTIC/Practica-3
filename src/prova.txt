@@ -1,0 +1,14 @@
+oli
+pa
+tomàquet
+@@
+pa-tom
+pa 250
+tomàquet 40
+oli 10
+@@
+pa-oli
+pa 250
+oli 10
+@@
+@@
