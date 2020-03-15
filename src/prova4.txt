@@ -1,0 +1,20 @@
+ous
+oli
+pa
+tomàquet
+llet
+@@
+pa-tom
+pa 250
+tomàquet 40
+oli 10
+@@
+gofre
+llet 100
+ous 50
+@@
+pa-oli
+pa 250
+oli 100010
+@@
+@@

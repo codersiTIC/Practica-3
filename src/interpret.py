@@ -51,6 +51,30 @@ class Interpret(object):
     def __init__(self):
         self._dcom = dict()
         self._prompt = str()
+        self.alpha = self.set_begin
+        self.omega = self.set_end
+
+
+
+    def set_begin(self, f):
+        '''
+        Fixa la funció 'f' com l'inicialitzador que es cridarà
+        just abans d'arrencar l'interpret. 'f'  és una funció
+        sense paràmetres.
+        '''
+        pass
+
+
+    def set_end(self,f):
+        '''
+        Fixa la funció 'f' com el finalitzador que es cridarà
+        just abans d'acabar l'execució de l’intèrpret. ‘f‘ és una
+        funció sense paràmetres.
+        '''
+        pass
+
+
+
 
     def set_prompt(self,p):
         '''
@@ -99,7 +123,7 @@ class Interpret(object):
 
             self._dcom[nomc] = ordre
 
-
+    
     def run(self):
         '''
         Arrenca l’execució d’aquest intèrpret d’ordres. L’intèrpret s’executa indefinidament fins
@@ -121,7 +145,7 @@ class Interpret(object):
                 if len(ordres) == 3:
                     ordres[0], ordres[1] = ordres[1], ordres[0]
                     ordres[2] = int(ordres[2])
-                
+
                 if self._dcom.has_key(ll[0]):
                     if len(ordres) == 0:
                         self._dcom[ll[0]]()
@@ -138,19 +162,17 @@ class Interpret(object):
                     ll.append('surt'); ll.append('help')
                     ll = sorted(ll)
                     print ll
-                    print
-                    print 'Ordres disponibles:'
-                    print
+                    print '\nOrdres disponibles:\n'
                     for element in ll:
-                        if element == 'producte':                            
+                        if element == 'producte':
                             print ' ** producte <nom> --> Afegeix un producte al receptari de nom <nom> \n'
-                            
-                        elif element == 'recepta':                            
+
+                        elif element == 'recepta':
                             print ' ** recepta <nom> --> Afegeix una recepta al receptari que té nom <nom> \n'
-                            
+
                         elif element == 'ingredient':
                             print " ** ingredient <nomp> <nomr> <qua> --> Afegeix <qua> grams de l'ingredient de"
-                            
+
                             print "                                       nom <nomp> al la recepta <nomr> \n"
 
                         elif element == 'print':
@@ -163,16 +185,17 @@ class Interpret(object):
                             print "     ** receptes-ing --> Escriu la llista de noms de recepta en que participa"
                             print "                       l’ingredient anomenat <nom> \n"
 
-                        elif element == 'surt':                            
+                        elif element == 'surt':
                             print " ** surt --> Acaba l'execució del programa"
 
                         elif element == 'desa':
                             print " ** desa <nomf> --> Desa les dades del receptari en un fitxer de nom <nomf> \n"
 
                         elif element == 'recupera':
-                            print " ** recupera <nomf> --> Recupera les dades del fitxer <nomf>. En cas que el" 
+                            print " ** recupera <nomf> --> Recupera les dades del fitxer <nomf>. En cas que el"
                             print "                        fitxer contingui productes o receptes que ja existeixen,"
                             print "                        no les incorpora de nou i les ignora \n"
+
 
                 else:
                     print "Comanda no coneguda"

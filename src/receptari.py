@@ -250,7 +250,10 @@ class Receptari(object):
         Desa les dades en el fitxer de text de nom ⟨nomf⟩.
         '''
 
-        with open(f+'.txt', 'w') as fe:
+        if '.txt' or '.dat' not in f:
+            f += '.txt'
+            
+        with open(f, 'w') as fe:
             productes = self.ingredients()
             receptes = self.receptes()
 
@@ -269,49 +272,14 @@ class Receptari(object):
 
             fe.write('@@'+'\n')
 
-    def recupera(self, f):
+    def obre(self, f):
         '''
         Recupera les dades del fitxer de text de nom ⟨nomf⟩.
         En cas que el fitxer contingui productes o receptes que ja existien,
         no les incorpora de nou i les ignora.
 
-        oli
-        pa
-        tomàquet
-        @@
-        pa−tom
-        pa 250
-        tomàquet 40
-        oli 10
-        @@
-        pa−oli
-        pa 250
-        oli 10
-        @@
-        @@
-        '''
-
-        '''
-        TASCA 6
-        alpha Es una funci´o sense par`ametres que es cridada pel m`etode ´ run just abans de comen¸car.
-        omega Es una funci´o sense par`ametres que es cridada pel m`etode ´ run just abans d’acabar.
-        Tamb´e afegirem dos m`etodes m´es a la classe que serviran per gestionar aquests atributs:
-        def set begin(self, f):
-        ”””
-        Fixa la funci´o ‘f‘ com l’inicialitzador que es cridar`a just
-        abans d’arrencar l’interpret. ‘f‘ ´es una funci´o sense
-        par`ametres.
-        ”””
-        pass
-        def set end(self, f):
-        ””” perfecte ok tu fas la tasca 6 no
-        Fixa la funci´o ‘f‘ com el finalitzador que es cridar`a just
-        abans d’acabar l’execuci´o de l’int`erpret. ‘f‘ ´es una funci´o sense
-        par`ametres.
-        ”””
-        pass
-        '''
-        with open(f+'.txt') as fe:
+        '''        
+        with open(f) as fe:
             receptari = fe.readlines()
             s = ''.join(receptari).split('@@')
             ll = ''.join(s)
@@ -327,14 +295,17 @@ class Receptari(object):
                         j.append(k)
 
                 s.append(j)
-            print s
+            
 
             j = 0
             for i in s:
                 if j == 0: # afegir productes
                     for producte in i:
-                        self.afegeix_producte(producte)
+                        if producte in self.ingredients():
+                            pass
 
+                        else: # aqui si k fa falta , ok PERFCTE
+                            self.afegeix_producte(producte)
 
                 else:
                     c = 0
@@ -342,18 +313,24 @@ class Receptari(object):
 
                         if c == 0: # afegir recepta
                             nomr = recepta
+
+                            if nomr in self.receptes():
+                                break
+
                             self.afegeix_recepta(nomr)
 
                         else: # afegir ingredients recepta
-                            r_ing = recepta.split(' ') # [producte, quantitat]
-                            print r_ing
-                            self.afegeix_ingredient_recepta(nomr, r_ing[0], r_ing[1])
+                            r_ing = recepta.split(' ') # [producte, quantitat] no ha sigut tan llarg al final xdd ja xd
+                            self.afegeix_ingredient_recepta(nomr, r_ing[0], int(r_ing[1])) #Okay, crec que ja tira, he creat una recepta que es deia pa-tom
+                            #I he recuperat prova, i no m'ha modificat pa-tom. Està perfecte crec.
+
                         c += 1
                 j += 1
 
 
-
 if __name__ == '__main__':
+    '''
     r = Receptari()
     r.recupera('prova')
     pass
+    '''
