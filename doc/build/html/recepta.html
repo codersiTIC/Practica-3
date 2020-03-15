@@ -1,0 +1,324 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ca">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Mòdul recepta &#8212; Receptari 1.01 documentació</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.01',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="index" title="Índex" href="genindex.html" />
+    <link rel="search" title="Cerca" href="search.html" />
+    <link rel="next" title="Module receptari" href="receptari.html" />
+    <link rel="prev" title="Mòdul producte" href="producte.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegació</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Índex General"
+             accesskey="I">índex</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >mòduls</a> |</li>
+        <li class="right" >
+          <a href="receptari.html" title="Module receptari"
+             accesskey="N">següent</a> |</li>
+        <li class="right" >
+          <a href="producte.html" title="Mòdul producte"
+             accesskey="P">anterior</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Receptari 1.01 documentació</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <span class="target" id="module-recepta"></span><div class="section" id="modul-recepta">
+<h1>Mòdul <em>recepta</em><a class="headerlink" href="#modul-recepta" title="Link permanent a aquest títol">¶</a></h1>
+<p>El mòdul <em>recepta</em> defineix un nou tipus d’objectes basats en els anteriors (els
+Productes). Identifiquem una recepta amb el seu nom, o bé, pel seu conjunt de
+Productes i les seves quantitats en grams.</p>
+<p>La forma triada per representar-les ha sigut mitjançant els següents atributs:</p>
+<dl class="docutils">
+<dt>nom [str, Públic]:</dt>
+<dd>És el nom de la recepta</dd>
+<dt>ingredients [List, Privat]</dt>
+<dd>És una llista de tuples que enrergistra els ingredients de cada recepta. Cada
+tupla (p,q) codifica un producte p (atribut self.producte, heretat de la
+classe <em>Producte</em>) i la corresponent quantitat en grams q.</dd>
+</dl>
+<p>Definim la classe <em>Recepta</em> com mutable, ja que conté el mètode modificador,
+<em>afegeix_ingredient</em>. A més a més, tenim altres mètodes per consultar
+característiques concretes de la recepta, com ara <em>conte_ingredient</em>,
+<em>quantitat_ingredient</em>, <em>pes_total</em> o <em>ingredients</em>. En total 5 mètodes únics
+pels objectes tipus <em>Recepta</em>, explicats a continuació:</p>
+<dl class="class">
+<dt id="recepta.Recepta">
+<em class="property">class </em><code class="descclassname">recepta.</code><code class="descname">Recepta</code><span class="sig-paren">(</span><em>nom</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/recepta.html#Recepta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#recepta.Recepta" title="Link permanent a aquesta definició">¶</a></dt>
+<dd><p>– Doctests conjunts de la classe <em>Recepta</em> –</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">Recepta</span><span class="p">(</span><span class="s1">&#39;Pastís&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">afegeix_ingredient</span><span class="p">(</span><span class="s1">&#39;Nata&#39;</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<span class="go">[(&#39;Nata&#39;, 200)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">conte_ingredient</span><span class="p">(</span><span class="s1">&#39;Nata&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">conte_ingredient</span><span class="p">(</span><span class="s1">&#39;Xocolata&#39;</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">afegeix_ingredient</span><span class="p">(</span><span class="s1">&#39;Xocolata&#39;</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="go">[(&#39;Nata&#39;, 200), (&#39;Xocolata&#39;, 100)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">pes_total</span><span class="p">()</span>
+<span class="go">300</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">ingredients</span><span class="p">()</span>
+<span class="go">[&#39;Nata&#39;, &#39;Xocolata&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">quantitat_ingredient</span><span class="p">(</span><span class="s1">&#39;Xocolata&#39;</span><span class="p">)</span>
+<span class="go">100</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">afegeix_ingredient</span><span class="p">(</span><span class="s1">&#39;Maduixes&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="go">[(&#39;Nata&#39;, 200), (&#39;Xocolata&#39;, 100), (&#39;Maduixes&#39;, 50)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">afegeix_ingredient</span><span class="p">(</span><span class="s1">&#39;Xocolata&#39;</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<span class="go">[(&#39;Nata&#39;, 200), (&#39;Maduixes&#39;, 50), (&#39;Xocolata&#39;, 300)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">pes_total</span><span class="p">()</span>
+<span class="go">550</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">ingredients</span><span class="p">()</span>
+<span class="go">[&#39;Nata&#39;, &#39;Maduixes&#39;, &#39;Xocolata&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">conte_ingredient</span><span class="p">(</span><span class="s1">&#39;Maduixes&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">conte_ingredient</span><span class="p">(</span><span class="s1">&#39;Poma&#39;</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">quantitat_ingredient</span><span class="p">(</span><span class="s1">&#39;Nata&#39;</span><span class="p">)</span>
+<span class="go">200</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="recepta.Recepta.afegeix_ingredient">
+<code class="descname">afegeix_ingredient</code><span class="sig-paren">(</span><em>p</em>, <em>q</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/recepta.html#Recepta.afegeix_ingredient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#recepta.Recepta.afegeix_ingredient" title="Link permanent a aquesta definició">¶</a></dt>
+<dd><p><em>Mètode modificador</em>: Afegeix <em>q</em> grams del producte <em>p</em> a la recepta.</p>
+<p>Si la recepta ja contenia el Producte p, incrementa la seva quantitat
+en q grams.</p>
+<p>El paràmetre p, tot i ser inicialment un <em>string</em>, és processat i
+tractat com a objecte tipus Producte() al mètode (s’ha introduït com
+a <em>string</em> per comoditat).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paràmetres:</th><td class="field-body"><ul class="first simple">
+<li><strong>p</strong> (<em>str</em>) – Nom del producte</li>
+<li><strong>q</strong> (<em>int</em>) – Quantitat de producte en <em>q</em> grams</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Retorna:</th><td class="field-body"><p class="first">Una llista de tuples: [(p0, q0), (p1, q1), …]</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">Tipus de retorn:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><p class="first last">llista</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">Recepta</span><span class="p">(</span><span class="s1">&#39;Pastis Xocolata&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">afegeix_ingredient</span><span class="p">(</span><span class="s1">&#39;Llet&#39;</span><span class="p">,</span> <span class="mi">150</span><span class="p">)</span>
+<span class="go">[(&#39;Llet&#39;, 150)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">afegeix_ingredient</span><span class="p">(</span><span class="s1">&#39;xocolata&#39;</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<span class="go">[(&#39;Llet&#39;, 150), (&#39;xocolata&#39;, 200)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">afegeix_ingredient</span><span class="p">(</span><span class="s1">&#39;xocolata&#39;</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<span class="go">[(&#39;Llet&#39;, 150), (&#39;xocolata&#39;, 400)]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="recepta.Recepta.conte_ingredient">
+<code class="descname">conte_ingredient</code><span class="sig-paren">(</span><em>p</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/recepta.html#Recepta.conte_ingredient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#recepta.Recepta.conte_ingredient" title="Link permanent a aquesta definició">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paràmetres:</th><td class="field-body"><strong>p</strong> (<em>str</em>) – Producte</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Retorna:</th><td class="field-body">Donat un producte, retorna True or False la recepta contingui el producte <em>p</em></td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">Tipus de retorn:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">booleà</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">suc</span> <span class="o">=</span> <span class="n">Recepta</span><span class="p">(</span><span class="s1">&#39;suc&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">suc</span><span class="o">.</span><span class="n">afegeix_ingredient</span><span class="p">(</span><span class="s1">&#39;taronja&#39;</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<span class="go">[(&#39;taronja&#39;, 200)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">suc</span><span class="o">.</span><span class="n">afegeix_ingredient</span><span class="p">(</span><span class="s1">&#39;aigua&#39;</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="go">[(&#39;taronja&#39;, 200), (&#39;aigua&#39;, 1000)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">suc</span><span class="o">.</span><span class="n">conte_ingredient</span><span class="p">(</span><span class="s1">&#39;taronja&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">suc</span><span class="o">.</span><span class="n">conte_ingredient</span><span class="p">(</span><span class="s1">&#39;aigua&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">suc</span><span class="o">.</span><span class="n">conte_ingredient</span><span class="p">(</span><span class="s1">&#39;poma&#39;</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="recepta.Recepta.ingredients">
+<code class="descname">ingredients</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/recepta.html#Recepta.ingredients"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#recepta.Recepta.ingredients" title="Link permanent a aquesta definició">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Retorna:</th><td class="field-body">Una llista d’ingredients de la recepta</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Tipus de retorn:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">llista</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">llimonada</span> <span class="o">=</span> <span class="n">Recepta</span><span class="p">(</span><span class="s1">&#39;llimonada&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">llimonada</span><span class="o">.</span><span class="n">afegeix_ingredient</span><span class="p">(</span><span class="s1">&#39;Llimona&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="go">[(&#39;Llimona&#39;, 50)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">llimonada</span><span class="o">.</span><span class="n">afegeix_ingredient</span><span class="p">(</span><span class="s1">&#39;Aigua&#39;</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="go">[(&#39;Llimona&#39;, 50), (&#39;Aigua&#39;, 1000)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">llimonada</span><span class="o">.</span><span class="n">ingredients</span><span class="p">()</span>
+<span class="go">[&#39;Llimona&#39;, &#39;Aigua&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">llimonada</span><span class="o">.</span><span class="n">afegeix_ingredient</span><span class="p">(</span><span class="s1">&#39;Sucre&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="go">[(&#39;Llimona&#39;, 50), (&#39;Aigua&#39;, 1000), (&#39;Sucre&#39;, 50)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">llimonada</span><span class="o">.</span><span class="n">ingredients</span><span class="p">()</span>
+<span class="go">[&#39;Llimona&#39;, &#39;Aigua&#39;, &#39;Sucre&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="recepta.Recepta.pes_total">
+<code class="descname">pes_total</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/recepta.html#Recepta.pes_total"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#recepta.Recepta.pes_total" title="Link permanent a aquesta definició">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Retorna:</th><td class="field-body">Retorna el pes base total de la recepta en grams</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Tipus de retorn:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">llimonada</span> <span class="o">=</span> <span class="n">Recepta</span><span class="p">(</span><span class="s1">&#39;llimonada&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">llimonada</span><span class="o">.</span><span class="n">afegeix_ingredient</span><span class="p">(</span><span class="s1">&#39;Llimona&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="go">[(&#39;Llimona&#39;, 50)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">llimonada</span><span class="o">.</span><span class="n">afegeix_ingredient</span><span class="p">(</span><span class="s1">&#39;Aigua&#39;</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="go">[(&#39;Llimona&#39;, 50), (&#39;Aigua&#39;, 1000)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">llimonada</span><span class="o">.</span><span class="n">pes_total</span><span class="p">()</span>
+<span class="go">1050</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="recepta.Recepta.quantitat_ingredient">
+<code class="descname">quantitat_ingredient</code><span class="sig-paren">(</span><em>p</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/recepta.html#Recepta.quantitat_ingredient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#recepta.Recepta.quantitat_ingredient" title="Link permanent a aquesta definició">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paràmetres:</th><td class="field-body"><strong>p</strong> (<em>str</em>) – Nom del producte</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Retorna:</th><td class="field-body">La quantitat de producte p en grams o 0 si no en conté</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">Tipus de retorn:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">Recepta</span><span class="p">(</span><span class="s1">&#39;Banana split&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">afegeix_ingredient</span><span class="p">(</span><span class="s1">&#39;Banana&#39;</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<span class="go">[(&#39;Banana&#39;, 200)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">afegeix_ingredient</span><span class="p">(</span><span class="s1">&#39;Xocolata&#39;</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="go">[(&#39;Banana&#39;, 200), (&#39;Xocolata&#39;, 100)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">quantitat_ingredient</span><span class="p">(</span><span class="s1">&#39;Banana&#39;</span><span class="p">)</span>
+<span class="go">200</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">quantitat_ingredient</span><span class="p">(</span><span class="s1">&#39;Blueberry&#39;</span><span class="p">)</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">quantitat_ingredient</span><span class="p">(</span><span class="s1">&#39;Xocolata&#39;</span><span class="p">)</span>
+<span class="go">100</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Tema anterior</h4>
+  <p class="topless"><a href="producte.html"
+                        title="capítol anterior">Mòdul <em>producte</em></a></p>
+  <h4>Tema següent</h4>
+  <p class="topless"><a href="receptari.html"
+                        title="capítol següent">Module <em>receptari</em></a></p>
+  <div role="note" aria-label="source link">
+    <h3>Aquesta Pàgina</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/recepta.rst.txt"
+            rel="nofollow">Mostra Codi Font</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Cerca ràpida</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Ves a" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegació</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Índex General"
+             >índex</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >mòduls</a> |</li>
+        <li class="right" >
+          <a href="receptari.html" title="Module receptari"
+             >següent</a> |</li>
+        <li class="right" >
+          <a href="producte.html" title="Mòdul producte"
+             >anterior</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Receptari 1.01 documentació</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, D. Alamillo, M. Compte, A. Anhari.
+      Creat amb <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.
+    </div>
+  </body>
+</html>

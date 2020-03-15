@@ -1,0 +1,316 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ca">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>recepta &#8212; Receptari 1.01 documentació</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.01',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="index" title="Índex" href="../genindex.html" />
+    <link rel="search" title="Cerca" href="../search.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegació</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índex General"
+             accesskey="I">índex</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >mòduls</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Receptari 1.01 documentació</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for recepta</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Mòdul *recepta*</span>
+<span class="sd">================</span>
+
+<span class="sd">El mòdul *recepta* defineix un nou tipus d&#39;objectes basats en els anteriors (els</span>
+<span class="sd">Productes). Identifiquem una recepta amb el seu nom, o bé, pel seu conjunt de</span>
+<span class="sd">Productes i les seves quantitats en grams.</span>
+
+<span class="sd">La forma triada per representar-les ha sigut mitjançant els següents atributs:</span>
+
+<span class="sd">\</span>
+
+<span class="sd">nom [str, Públic]:</span>
+<span class="sd">    És el nom de la recepta</span>
+
+<span class="sd">ingredients [List, Privat]</span>
+<span class="sd">    És una llista de tuples que enrergistra els ingredients de cada recepta. Cada</span>
+<span class="sd">    tupla (p,q) codifica un producte p (atribut self.producte, heretat de la</span>
+<span class="sd">    classe *Producte*) i la corresponent quantitat en grams q.</span>
+
+<span class="sd">\</span>
+
+
+<span class="sd">Definim la classe *Recepta* com mutable, ja que conté el mètode modificador,</span>
+<span class="sd">*afegeix_ingredient*. A més a més, tenim altres mètodes per consultar</span>
+<span class="sd">característiques concretes de la recepta, com ara *conte_ingredient*,</span>
+<span class="sd">*quantitat_ingredient*, *pes_total* o *ingredients*. En total 5 mètodes únics</span>
+<span class="sd">pels objectes tipus *Recepta*, explicats a continuació:</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="kn">from</span> <span class="nn">producte</span> <span class="kn">import</span><span class="o">*</span>
+<span class="kn">from</span> <span class="nn">string</span> <span class="kn">import</span><span class="o">*</span>
+
+
+<div class="viewcode-block" id="Recepta"><a class="viewcode-back" href="../recepta.html#recepta.Recepta">[docs]</a><span class="k">class</span> <span class="nc">Recepta</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    -- Doctests conjunts de la classe *Recepta* --</span>
+
+<span class="sd">    &gt;&gt;&gt; r = Recepta(&#39;Pastís&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; r.afegeix_ingredient(&#39;Nata&#39;, 200)</span>
+<span class="sd">    [(&#39;Nata&#39;, 200)]</span>
+<span class="sd">    &gt;&gt;&gt; r.conte_ingredient(&#39;Nata&#39;)</span>
+<span class="sd">    True</span>
+<span class="sd">    &gt;&gt;&gt; r.conte_ingredient(&#39;Xocolata&#39;)</span>
+<span class="sd">    False</span>
+<span class="sd">    &gt;&gt;&gt; r.afegeix_ingredient(&#39;Xocolata&#39;, 100)</span>
+<span class="sd">    [(&#39;Nata&#39;, 200), (&#39;Xocolata&#39;, 100)]</span>
+<span class="sd">    &gt;&gt;&gt; r.pes_total()</span>
+<span class="sd">    300</span>
+<span class="sd">    &gt;&gt;&gt; r.ingredients()</span>
+<span class="sd">    [&#39;Nata&#39;, &#39;Xocolata&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; r.quantitat_ingredient(&#39;Xocolata&#39;)</span>
+<span class="sd">    100</span>
+<span class="sd">    &gt;&gt;&gt; r.afegeix_ingredient(&#39;Maduixes&#39;, 50)</span>
+<span class="sd">    [(&#39;Nata&#39;, 200), (&#39;Xocolata&#39;, 100), (&#39;Maduixes&#39;, 50)]</span>
+<span class="sd">    &gt;&gt;&gt; r.afegeix_ingredient(&#39;Xocolata&#39;, 200)</span>
+<span class="sd">    [(&#39;Nata&#39;, 200), (&#39;Maduixes&#39;, 50), (&#39;Xocolata&#39;, 300)]</span>
+<span class="sd">    &gt;&gt;&gt; r.pes_total()</span>
+<span class="sd">    550</span>
+<span class="sd">    &gt;&gt;&gt; r.ingredients()</span>
+<span class="sd">    [&#39;Nata&#39;, &#39;Maduixes&#39;, &#39;Xocolata&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; r.conte_ingredient(&#39;Maduixes&#39;)</span>
+<span class="sd">    True</span>
+<span class="sd">    &gt;&gt;&gt; r.conte_ingredient(&#39;Poma&#39;)</span>
+<span class="sd">    False</span>
+<span class="sd">    &gt;&gt;&gt; r.quantitat_ingredient(&#39;Nata&#39;)</span>
+<span class="sd">    200</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nom</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nom</span> <span class="o">=</span> <span class="n">nom</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ingredients</span> <span class="o">=</span> <span class="p">[]</span>
+
+<div class="viewcode-block" id="Recepta.afegeix_ingredient"><a class="viewcode-back" href="../recepta.html#recepta.Recepta.afegeix_ingredient">[docs]</a>    <span class="k">def</span> <span class="nf">afegeix_ingredient</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span><span class="n">q</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        *Mètode modificador*: Afegeix *q* grams del producte *p* a la recepta.\n</span>
+
+<span class="sd">        Si la recepta ja contenia el Producte p, incrementa la seva quantitat</span>
+<span class="sd">        en q grams.\n</span>
+
+<span class="sd">        El paràmetre p, tot i ser inicialment un *string*, és processat i</span>
+<span class="sd">        tractat com a objecte tipus Producte() al mètode (s&#39;ha introduït com</span>
+<span class="sd">        a *string* per comoditat).</span>
+
+<span class="sd">        :param p: Nom del producte</span>
+<span class="sd">        :type p: str</span>
+<span class="sd">        :param q: Quantitat de producte en *q* grams</span>
+<span class="sd">        :type q: int</span>
+<span class="sd">        :returns: Una llista de tuples: [(p0, q0), (p1, q1), ...]</span>
+<span class="sd">        :rtype: llista</span>
+
+<span class="sd">        &gt;&gt;&gt; r = Recepta(&#39;Pastis Xocolata&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; r.afegeix_ingredient(&#39;Llet&#39;, 150)</span>
+<span class="sd">        [(&#39;Llet&#39;, 150)]</span>
+<span class="sd">        &gt;&gt;&gt; r.afegeix_ingredient(&#39;xocolata&#39;, 200)</span>
+<span class="sd">        [(&#39;Llet&#39;, 150), (&#39;xocolata&#39;, 200)]</span>
+<span class="sd">        &gt;&gt;&gt; r.afegeix_ingredient(&#39;xocolata&#39;, 200)</span>
+<span class="sd">        [(&#39;Llet&#39;, 150), (&#39;xocolata&#39;, 400)]</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="n">i</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Aquest -5 el posem perquè fins al final hem vist un error MOLT GREU, teniem</span>
+<span class="sd">        la variable i inicialitzada a 0, i si trobem dins d&#39;una</span>
+<span class="sd">        tupla un valor repetir el canviem, generant-nos &quot;una senyal de canvi&quot;.</span>
+
+<span class="sd">        L&#39;error CRUCIAL, amb que ens hem topat ha sigut al repetir dos Productes</span>
+<span class="sd">        seguits iguals, fent que el primer index sigui 0 el canviem a 0 peró la senyal</span>
+<span class="sd">        no &quot;haurà canviat&quot; ja que el criteri decidit per canviar era que fos diferent a 0.</span>
+
+<span class="sd">        Doncs, llavors, per aixó inicialitzem a qualsevol valor negatiu, o de diferentes</span>
+<span class="sd">        maneres.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ingredients</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">element</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">p</span><span class="p">:</span>
+                <span class="n">j</span> <span class="o">=</span> <span class="n">element</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ingredients</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+                <span class="k">break</span>
+
+        <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">5</span><span class="p">:</span> <span class="c1"># aixo tmb</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ingredients</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ingredients</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">Producte</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="o">.</span><span class="n">producte</span><span class="p">,</span> <span class="n">q</span> <span class="o">+</span> <span class="n">j</span><span class="p">))</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ingredients</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ingredients</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">Producte</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="o">.</span><span class="n">producte</span><span class="p">,</span><span class="n">q</span><span class="p">))</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ingredients</span></div>
+
+<div class="viewcode-block" id="Recepta.conte_ingredient"><a class="viewcode-back" href="../recepta.html#recepta.Recepta.conte_ingredient">[docs]</a>    <span class="k">def</span> <span class="nf">conte_ingredient</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">p</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        :param p: Producte</span>
+<span class="sd">        :type p: str</span>
+<span class="sd">        :returns: Donat un producte, retorna True or False la recepta contingui el producte *p*</span>
+<span class="sd">        :rtype: booleà</span>
+
+<span class="sd">        &gt;&gt;&gt; suc = Recepta(&#39;suc&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; suc.afegeix_ingredient(&#39;taronja&#39;, 200)</span>
+<span class="sd">        [(&#39;taronja&#39;, 200)]</span>
+<span class="sd">        &gt;&gt;&gt; suc.afegeix_ingredient(&#39;aigua&#39;, 1000)</span>
+<span class="sd">        [(&#39;taronja&#39;, 200), (&#39;aigua&#39;, 1000)]</span>
+<span class="sd">        &gt;&gt;&gt; suc.conte_ingredient(&#39;taronja&#39;)</span>
+<span class="sd">        True</span>
+<span class="sd">        &gt;&gt;&gt; suc.conte_ingredient(&#39;aigua&#39;)</span>
+<span class="sd">        True</span>
+<span class="sd">        &gt;&gt;&gt; suc.conte_ingredient(&#39;poma&#39;)</span>
+<span class="sd">        False</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ingredients</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">element</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">p</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="Recepta.quantitat_ingredient"><a class="viewcode-back" href="../recepta.html#recepta.Recepta.quantitat_ingredient">[docs]</a>    <span class="k">def</span> <span class="nf">quantitat_ingredient</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">p</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        :param p: Nom del producte</span>
+<span class="sd">        :type p: str</span>
+<span class="sd">        :returns: La quantitat de producte p en grams o 0 si no en conté</span>
+<span class="sd">        :rtype: int</span>
+
+<span class="sd">        &gt;&gt;&gt; r = Recepta(&#39;Banana split&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; r.afegeix_ingredient(&#39;Banana&#39;, 200)</span>
+<span class="sd">        [(&#39;Banana&#39;, 200)]</span>
+<span class="sd">        &gt;&gt;&gt; r.afegeix_ingredient(&#39;Xocolata&#39;, 100)</span>
+<span class="sd">        [(&#39;Banana&#39;, 200), (&#39;Xocolata&#39;, 100)]</span>
+<span class="sd">        &gt;&gt;&gt; r.quantitat_ingredient(&#39;Banana&#39;)</span>
+<span class="sd">        200</span>
+<span class="sd">        &gt;&gt;&gt; r.quantitat_ingredient(&#39;Blueberry&#39;)</span>
+<span class="sd">        0</span>
+<span class="sd">        &gt;&gt;&gt; r.quantitat_ingredient(&#39;Xocolata&#39;)</span>
+<span class="sd">        100</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ingredients</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">element</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">p</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">element</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span></div>
+
+
+<div class="viewcode-block" id="Recepta.pes_total"><a class="viewcode-back" href="../recepta.html#recepta.Recepta.pes_total">[docs]</a>    <span class="k">def</span> <span class="nf">pes_total</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        :returns: Retorna el pes base total de la recepta en grams</span>
+<span class="sd">        :rtype: list</span>
+
+<span class="sd">        &gt;&gt;&gt; llimonada = Recepta(&#39;llimonada&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; llimonada.afegeix_ingredient(&#39;Llimona&#39;, 50)</span>
+<span class="sd">        [(&#39;Llimona&#39;, 50)]</span>
+<span class="sd">        &gt;&gt;&gt; llimonada.afegeix_ingredient(&#39;Aigua&#39;, 1000)</span>
+<span class="sd">        [(&#39;Llimona&#39;, 50), (&#39;Aigua&#39;, 1000)]</span>
+<span class="sd">        &gt;&gt;&gt; llimonada.pes_total()</span>
+<span class="sd">        1050</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">([</span><span class="n">tupla</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">tupla</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ingredients</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="Recepta.ingredients"><a class="viewcode-back" href="../recepta.html#recepta.Recepta.ingredients">[docs]</a>    <span class="k">def</span> <span class="nf">ingredients</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        :returns: Una llista d&#39;ingredients de la recepta</span>
+<span class="sd">        :rtype: llista</span>
+
+<span class="sd">        &gt;&gt;&gt; llimonada = Recepta(&#39;llimonada&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; llimonada.afegeix_ingredient(&#39;Llimona&#39;, 50)</span>
+<span class="sd">        [(&#39;Llimona&#39;, 50)]</span>
+<span class="sd">        &gt;&gt;&gt; llimonada.afegeix_ingredient(&#39;Aigua&#39;, 1000)</span>
+<span class="sd">        [(&#39;Llimona&#39;, 50), (&#39;Aigua&#39;, 1000)]</span>
+<span class="sd">        &gt;&gt;&gt; llimonada.ingredients()</span>
+<span class="sd">        [&#39;Llimona&#39;, &#39;Aigua&#39;]</span>
+<span class="sd">        &gt;&gt;&gt; llimonada.afegeix_ingredient(&#39;Sucre&#39;, 50)</span>
+<span class="sd">        [(&#39;Llimona&#39;, 50), (&#39;Aigua&#39;, 1000), (&#39;Sucre&#39;, 50)]</span>
+<span class="sd">        &gt;&gt;&gt; llimonada.ingredients()</span>
+<span class="sd">        [&#39;Llimona&#39;, &#39;Aigua&#39;, &#39;Sucre&#39;]</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="k">return</span> <span class="p">[</span><span class="n">tupla</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">tupla</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ingredients</span><span class="p">]</span></div></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">Recepta</span><span class="p">(</span><span class="s1">&#39;gofre&#39;</span><span class="p">)</span>
+    <span class="nb">print</span> <span class="n">r</span><span class="o">.</span><span class="n">afegeix_ingredient</span><span class="p">(</span><span class="s1">&#39;ous&#39;</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="nb">print</span> <span class="n">r</span><span class="o">.</span><span class="n">afegeix_ingredient</span><span class="p">(</span><span class="s1">&#39;ous&#39;</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Cerca ràpida</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Ves a" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegació</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índex General"
+             >índex</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >mòduls</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Receptari 1.01 documentació</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, D. Alamillo, M. Compte, A. Anhari.
+      Creat amb <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.
+    </div>
+  </body>
+</html>

@@ -74,7 +74,8 @@ class Receptari(object):
         '''
 
         if self._receptes.has_key(n):
-            print "La recepta ja existeix"
+            print ("La recepta < %s > ja existeix"%(n))
+
         else:
             self._receptes[n] = Recepta(n)
 
@@ -94,7 +95,7 @@ class Receptari(object):
         '''
 
         if nomp in self._productes.keys():
-            print "El producte ja existeix"
+            print ("El producte < %s > ja existeix"%(nomp))
         else:
             self._productes[nomp] = Producte(nomp)
 
@@ -245,14 +246,20 @@ class Receptari(object):
         '''
         return self._receptes[nomr]._ingredients
 
-    def desa (self, f):
+    def desa (self, f = None):
         '''
-        Desa les dades en el fitxer de text de nom ⟨nomf⟩.
+        Desa les dades en el fitxer de text de nom ⟨nof⟩.
+
+        :param f: Iniciament no val res
         '''
 
-        if '.txt' or '.dat' not in f:
-            f += '.txt'
-            
+        if f == None:
+            f = 'prova.txt'
+        else:
+            if ('.txt' in f) or ('.dat' in f): pass
+            else: f += '.txt'
+
+
         with open(f, 'w') as fe:
             productes = self.ingredients()
             receptes = self.receptes()
@@ -272,20 +279,35 @@ class Receptari(object):
 
             fe.write('@@'+'\n')
 
-    def obre(self, f):
+
+
+    def obre(self, f = None):
         '''
         Recupera les dades del fitxer de text de nom ⟨nomf⟩.
         En cas que el fitxer contingui productes o receptes que ja existien,
         no les incorpora de nou i les ignora.
 
-        '''        
-        with open(f) as fe:
-            receptari = fe.readlines()
-            s = ''.join(receptari).split('@@')
-            ll = ''.join(s)
-            l = [i.split('\n') for i in s]
-            del(l[-1])
-            del(l[-1])
+        :param f: Nom del fitxer <nomf> del que volem recuperar les dades. Si no s'introdueix cap nom, el mètode obrirà un arxiu de nom 'prova.txt', si existeix.
+        :type f: string
+
+        '''
+
+        if f == None:
+            f = 'prova.txt'
+
+        else:
+
+            if ('.txt' in f) or ('.dat' in f): pass
+            else: f += '.txt'
+
+        try:
+            with open(f) as fe:
+                receptari = fe.readlines()
+                s = ''.join(receptari).split('@@')
+                ll = ''.join(s)
+                l = [i.split('\n') for i in s]
+                del(l[-1])
+                del(l[-1])
 
             s = []
             for i in l:
@@ -295,7 +317,7 @@ class Receptari(object):
                         j.append(k)
 
                 s.append(j)
-            
+
 
             j = 0
             for i in s:
@@ -304,7 +326,7 @@ class Receptari(object):
                         if producte in self.ingredients():
                             pass
 
-                        else: # aqui si k fa falta , ok PERFCTE
+                        else: # aqui si k fa falta , ok PERFECTE
                             self.afegeix_producte(producte)
 
                 else:
@@ -317,7 +339,7 @@ class Receptari(object):
                             if nomr in self.receptes():
                                 break
 
-                            self.afegeix_recepta(nomr)
+                            self.afegeix_recepta(nomr) #ben be nose si esta eh la funcio desa -- marcel
 
                         else: # afegir ingredients recepta
                             r_ing = recepta.split(' ') # [producte, quantitat] no ha sigut tan llarg al final xdd ja xd
@@ -326,6 +348,10 @@ class Receptari(object):
 
                         c += 1
                 j += 1
+
+        except:
+            pass
+
 
 
 if __name__ == '__main__':

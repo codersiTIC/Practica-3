@@ -1,0 +1,422 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ca">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Module receptari &#8212; Receptari 1.01 documentació</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.01',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="index" title="Índex" href="genindex.html" />
+    <link rel="search" title="Cerca" href="search.html" />
+    <link rel="next" title="Mòdul interpret" href="interpret.html" />
+    <link rel="prev" title="Mòdul recepta" href="recepta.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegació</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Índex General"
+             accesskey="I">índex</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >mòduls</a> |</li>
+        <li class="right" >
+          <a href="interpret.html" title="Mòdul interpret"
+             accesskey="N">següent</a> |</li>
+        <li class="right" >
+          <a href="recepta.html" title="Mòdul recepta"
+             accesskey="P">anterior</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Receptari 1.01 documentació</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <span class="target" id="module-receptari"></span><div class="section" id="id1">
+<h1>Module <em>receptari</em><a class="headerlink" href="#id1" title="Link permanent a aquest títol">¶</a></h1>
+<p>El mòdul <em>receptari.py</em> conté la classe <em>Receptari</em>, la qual està fonamentalment
+formada per múltiples objectes de tipus <em>Recepta</em>. S’ha decidit representar als
+objectes de la classe mitjançant dos atributs principals:</p>
+<dl class="docutils">
+<dt>receptes [dict, Privat]</dt>
+<dd>És un diccionari en el que la clau correspon al nom de totes les receptes
+del receptari i el valor correspon a l’objecte Recepta corresponent.</dd>
+<dt>productes [dict, Privat]</dt>
+<dd>És un diccionari en el que la clau correspon al nom de tots els productes
+que intervenen en el receptari i el valor correspon a l’objecte Producte
+corresponent.</dd>
+</dl>
+<ul class="simple">
+<li><em>El receptari inicialment no conté cap recepta ni producta</em>.</li>
+</ul>
+<p>La classe <em>Receptari</em> és de tipus mutable, ja què conté els mètodes modificadors
+<em>afegeix_recepta</em>, <em>afegeix_producte</em> i <em>afegeix_ingredient_recepta</em>. La resta
+de mètodes no modificadors de la classe són: <em>receptes_ingredient</em>, <em>receptes</em>, <em>ingredients</em> i <em>recepta</em>. En total, 7 mètodes específics dels objectes tipus <em>Receptari</em>, explicats a continuació:</p>
+<dl class="class">
+<dt id="receptari.Receptari">
+<em class="property">class </em><code class="descclassname">receptari.</code><code class="descname">Receptari</code><a class="reference internal" href="_modules/receptari.html#Receptari"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#receptari.Receptari" title="Link permanent a aquesta definició">¶</a></dt>
+<dd><p>– Doctests conjunts de la classe <em>Recepta</em> –</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">Receptari</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">afegeix_recepta</span><span class="p">(</span><span class="s1">&#39;Pastis Xocolata&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">afegeix_recepta</span><span class="p">(</span><span class="s1">&#39;Pastis Xocolata&#39;</span><span class="p">)</span>
+<span class="go">La recepta ja existeix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">afegeix_recepta</span><span class="p">(</span><span class="s1">&#39;Gofre&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">afegeix_producte</span><span class="p">(</span><span class="s1">&#39;Llet&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">afegeix_producte</span><span class="p">(</span><span class="s1">&#39;Ous&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">afegeix_ingredient_recepta</span><span class="p">(</span><span class="s1">&#39;Gofre&#39;</span><span class="p">,</span> <span class="s1">&#39;Llet&#39;</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">afegeix_ingredient_recepta</span><span class="p">(</span><span class="s1">&#39;Pastis Xocolata&#39;</span><span class="p">,</span> <span class="s1">&#39;Llet&#39;</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">afegeix_ingredient_recepta</span><span class="p">(</span><span class="s1">&#39;Pastis Xocolata&#39;</span><span class="p">,</span> <span class="s1">&#39;Ous&#39;</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">receptes_ingredient</span><span class="p">(</span><span class="s1">&#39;Llet&#39;</span><span class="p">)</span>
+<span class="go">[&#39;Gofre&#39;, &#39;Pastis Xocolata&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">receptes_ingredient</span><span class="p">(</span><span class="s1">&#39;Ous&#39;</span><span class="p">)</span>
+<span class="go">[&#39;Pastis Xocolata&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">receptes</span><span class="p">()</span>
+<span class="go">[&#39;Gofre&#39;, &#39;Pastis Xocolata&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">ingredients</span><span class="p">()</span>
+<span class="go">[&#39;Ous&#39;, &#39;Llet&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">recepta</span><span class="p">(</span><span class="s1">&#39;Pastis Xocolata&#39;</span><span class="p">)</span>
+<span class="go">[(&#39;Llet&#39;, 200), (&#39;Ous&#39;, 200)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">recepta</span><span class="p">(</span><span class="s1">&#39;Gofre&#39;</span><span class="p">)</span>
+<span class="go">[(&#39;Llet&#39;, 500)]</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="receptari.Receptari.afegeix_ingredient_recepta">
+<code class="descname">afegeix_ingredient_recepta</code><span class="sig-paren">(</span><em>nomr</em>, <em>nomp</em>, <em>q</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/receptari.html#Receptari.afegeix_ingredient_recepta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#receptari.Receptari.afegeix_ingredient_recepta" title="Link permanent a aquesta definició">¶</a></dt>
+<dd><p>Afegeix q grams de l’ingredient de nom nomp a la recepta de nom nomr.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paràmetres:</th><td class="field-body"><ul class="first last simple">
+<li><strong>nomr</strong> (<em>str</em>) – Nom de la recepta</li>
+<li><strong>nomp</strong> (<em>str</em>) – Nom del pecepta</li>
+<li><strong>q</strong> (<em>int</em>) – Quantitat de producte en gr</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span> <span class="o">=</span> <span class="n">Receptari</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_producte</span><span class="p">(</span><span class="s1">&#39;Farina&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_ingredient_recepta</span><span class="p">(</span><span class="s1">&#39;Gofre&#39;</span><span class="p">,</span> <span class="s1">&#39;Farina&#39;</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+<span class="go">La recepta &lt; Gofre &gt; no existeix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_recepta</span><span class="p">(</span><span class="s1">&#39;Gofre&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_producte</span><span class="p">(</span><span class="s1">&#39;Ous&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_producte</span><span class="p">(</span><span class="s1">&#39;Farina&#39;</span><span class="p">)</span>
+<span class="go">El producte ja existeix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_ingredient_recepta</span><span class="p">(</span><span class="s1">&#39;Gofre&#39;</span><span class="p">,</span> <span class="s1">&#39;Farina&#39;</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_ingredient_recepta</span><span class="p">(</span><span class="s1">&#39;Gofre&#39;</span><span class="p">,</span> <span class="s1">&#39;Ous&#39;</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_ingredient_recepta</span><span class="p">(</span><span class="s1">&#39;Gofre&#39;</span><span class="p">,</span> <span class="s1">&#39;Llet&#39;</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+<span class="go">El producte &lt; Llet &gt; no existeix</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="receptari.Receptari.afegeix_producte">
+<code class="descname">afegeix_producte</code><span class="sig-paren">(</span><em>nomp</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/receptari.html#Receptari.afegeix_producte"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#receptari.Receptari.afegeix_producte" title="Link permanent a aquesta definició">¶</a></dt>
+<dd><p>Afegeix un nou Producte de nom nomp.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paràmetres:</th><td class="field-body"><strong>nomp</strong> (<em>str</em>) – Nom del producte</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span> <span class="o">=</span> <span class="n">Receptari</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_producte</span><span class="p">(</span><span class="s1">&#39;Farina&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_producte</span><span class="p">(</span><span class="s1">&#39;Ous&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_producte</span><span class="p">(</span><span class="s1">&#39;Farina&#39;</span><span class="p">)</span>
+<span class="go">El producte ja existeix</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="receptari.Receptari.afegeix_recepta">
+<code class="descname">afegeix_recepta</code><span class="sig-paren">(</span><em>n</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/receptari.html#Receptari.afegeix_recepta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#receptari.Receptari.afegeix_recepta" title="Link permanent a aquesta definició">¶</a></dt>
+<dd><p>Modificador. Afegeix una recepta de nom n al receptari, és a dir, afegeix al dicionari de clau [nomr] una instància de Receptari(nomr).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paràmetres:</th><td class="field-body"><strong>n</strong> (<em>str</em>) – Nom de la recepta</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span> <span class="o">=</span> <span class="n">Receptari</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_recepta</span><span class="p">(</span><span class="s1">&#39;Pastis Xocolata&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_recepta</span><span class="p">(</span><span class="s1">&#39;Pastis Xocolata&#39;</span><span class="p">)</span>
+<span class="go">La recepta ja existeix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_recepta</span><span class="p">(</span><span class="s1">&#39;Gofres&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="receptari.Receptari.desa">
+<code class="descname">desa</code><span class="sig-paren">(</span><em>f=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/receptari.html#Receptari.desa"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#receptari.Receptari.desa" title="Link permanent a aquesta definició">¶</a></dt>
+<dd><p>Desa les dades en el fitxer de text de nom ⟨f⟩.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paràmetres:</th><td class="field-body"><strong>f</strong> – Iniciament no val res</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="receptari.Receptari.ingredients">
+<code class="descname">ingredients</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/receptari.html#Receptari.ingredients"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#receptari.Receptari.ingredients" title="Link permanent a aquesta definició">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Retorna:</th><td class="field-body">La llista dels noms de productes del receptari</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Tipus de retorn:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">llista</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span> <span class="o">=</span> <span class="n">Receptari</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_recepta</span><span class="p">(</span><span class="s1">&#39;Gofre&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_producte</span><span class="p">(</span><span class="s1">&#39;Farina&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_producte</span><span class="p">(</span><span class="s1">&#39;Ous&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_producte</span><span class="p">(</span><span class="s1">&#39;Llet&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_producte</span><span class="p">(</span><span class="s1">&#39;Llevat&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">ingredients</span><span class="p">()</span>
+<span class="go">[&#39;Ous&#39;, &#39;Llevat&#39;, &#39;Farina&#39;, &#39;Llet&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="receptari.Receptari.obre">
+<code class="descname">obre</code><span class="sig-paren">(</span><em>f=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/receptari.html#Receptari.obre"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#receptari.Receptari.obre" title="Link permanent a aquesta definició">¶</a></dt>
+<dd><p>Recupera les dades del fitxer de text de nom ⟨nomf⟩.
+En cas que el fitxer contingui productes o receptes que ja existien,
+no les incorpora de nou i les ignora.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paràmetres:</th><td class="field-body"><strong>f</strong> – Nom del fitxer &lt;nomf&gt; del</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="receptari.Receptari.recepta">
+<code class="descname">recepta</code><span class="sig-paren">(</span><em>nomr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/receptari.html#Receptari.recepta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#receptari.Receptari.recepta" title="Link permanent a aquesta definició">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paràmetres:</th><td class="field-body"><strong>nomr</strong> (<em>str</em>) – Nom de la recepta</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Retorna:</th><td class="field-body">Retorna una llista de parells (nomp, q) cadascun dels quals representa un ingredient de la recepta <strong>nomr</strong>. Cada parell agrega el nom del producte nomr i el pes necessari en <strong>q</strong> grams.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">Tipus de retorn:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">llista</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span> <span class="o">=</span> <span class="n">Receptari</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_recepta</span><span class="p">(</span><span class="s1">&#39;Gofre&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_recepta</span><span class="p">(</span><span class="s1">&#39;Pastis Xocolata&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_producte</span><span class="p">(</span><span class="s1">&#39;Farina&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_producte</span><span class="p">(</span><span class="s1">&#39;Ous&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_producte</span><span class="p">(</span><span class="s1">&#39;Llet&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_producte</span><span class="p">(</span><span class="s1">&#39;Sucre&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_ingredient_recepta</span><span class="p">(</span><span class="s1">&#39;Pastis Xocolata&#39;</span><span class="p">,</span> <span class="s1">&#39;Farina&#39;</span><span class="p">,</span> <span class="mi">700</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_ingredient_recepta</span><span class="p">(</span><span class="s1">&#39;Pastis Xocolata&#39;</span><span class="p">,</span> <span class="s1">&#39;Llet&#39;</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_ingredient_recepta</span><span class="p">(</span><span class="s1">&#39;Gofre&#39;</span><span class="p">,</span> <span class="s1">&#39;Farina&#39;</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_ingredient_recepta</span><span class="p">(</span><span class="s1">&#39;Gofre&#39;</span><span class="p">,</span> <span class="s1">&#39;Llet&#39;</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_ingredient_recepta</span><span class="p">(</span><span class="s1">&#39;Gofre&#39;</span><span class="p">,</span> <span class="s1">&#39;Sucre&#39;</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_ingredient_recepta</span><span class="p">(</span><span class="s1">&#39;Gofre&#39;</span><span class="p">,</span> <span class="s1">&#39;Sucre&#39;</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">receptes_ingredient</span><span class="p">(</span><span class="s1">&#39;Farina&#39;</span><span class="p">)</span>
+<span class="go">[&#39;Pastis Xocolata&#39;, &#39;Gofre&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">receptes_ingredient</span><span class="p">(</span><span class="s1">&#39;Llet&#39;</span><span class="p">)</span>
+<span class="go">[&#39;Pastis Xocolata&#39;, &#39;Gofre&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">receptes_ingredient</span><span class="p">(</span><span class="s1">&#39;Sucre&#39;</span><span class="p">)</span>
+<span class="go">[&#39;Gofre&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">receptes_ingredient</span><span class="p">(</span><span class="s1">&#39;Ous&#39;</span><span class="p">)</span>
+<span class="go">[]</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">recepta</span><span class="p">(</span><span class="s1">&#39;Gofre&#39;</span><span class="p">)</span>
+<span class="go">[(&#39;Farina&#39;, 500), (&#39;Llet&#39;, 300), (&#39;Sucre&#39;, 400)]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="receptari.Receptari.receptes">
+<code class="descname">receptes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/receptari.html#Receptari.receptes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#receptari.Receptari.receptes" title="Link permanent a aquesta definició">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Retorna:</th><td class="field-body">La llista dels noms de les receptes que conté el receptari</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Tipus de retorn:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">llista</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span> <span class="o">=</span> <span class="n">Receptari</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_recepta</span><span class="p">(</span><span class="s1">&#39;Gofre&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_recepta</span><span class="p">(</span><span class="s1">&#39;Pastis Xocolata&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_recepta</span><span class="p">(</span><span class="s1">&#39;Paella&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_recepta</span><span class="p">(</span><span class="s1">&#39;Hamburguesa de bacalla&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">receptes</span><span class="p">()</span>
+<span class="go">[&#39;Hamburguesa de bacalla&#39;, &#39;Pastis Xocolata&#39;, &#39;Gofre&#39;, &#39;Paella&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="receptari.Receptari.receptes_ingredient">
+<code class="descname">receptes_ingredient</code><span class="sig-paren">(</span><em>nomp</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/receptari.html#Receptari.receptes_ingredient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#receptari.Receptari.receptes_ingredient" title="Link permanent a aquesta definició">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paràmetres:</th><td class="field-body"><strong>nomp</strong> (<em>str</em>) – Nom del producte</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Retorna:</th><td class="field-body">Una llista de noms de receptes que contenen l’ingredient <em>nomp</em></td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">Tipus de retorn:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">llista</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span> <span class="o">=</span> <span class="n">Receptari</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_recepta</span><span class="p">(</span><span class="s1">&#39;Gofre&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_recepta</span><span class="p">(</span><span class="s1">&#39;Pastis Xocolata&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_producte</span><span class="p">(</span><span class="s1">&#39;Farina&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_producte</span><span class="p">(</span><span class="s1">&#39;Ous&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_producte</span><span class="p">(</span><span class="s1">&#39;Llet&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_producte</span><span class="p">(</span><span class="s1">&#39;Sucre&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_ingredient_recepta</span><span class="p">(</span><span class="s1">&#39;Pastis Xocolata&#39;</span><span class="p">,</span> <span class="s1">&#39;Farina&#39;</span><span class="p">,</span> <span class="mi">700</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_ingredient_recepta</span><span class="p">(</span><span class="s1">&#39;Pastis Xocolata&#39;</span><span class="p">,</span> <span class="s1">&#39;Llet&#39;</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_ingredient_recepta</span><span class="p">(</span><span class="s1">&#39;Gofre&#39;</span><span class="p">,</span> <span class="s1">&#39;Farina&#39;</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_ingredient_recepta</span><span class="p">(</span><span class="s1">&#39;Gofre&#39;</span><span class="p">,</span> <span class="s1">&#39;Llet&#39;</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">afegeix_ingredient_recepta</span><span class="p">(</span><span class="s1">&#39;Gofre&#39;</span><span class="p">,</span> <span class="s1">&#39;Sucre&#39;</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">receptes_ingredient</span><span class="p">(</span><span class="s1">&#39;Farina&#39;</span><span class="p">)</span>
+<span class="go">[&#39;Pastis Xocolata&#39;, &#39;Gofre&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">receptes_ingredient</span><span class="p">(</span><span class="s1">&#39;Llet&#39;</span><span class="p">)</span>
+<span class="go">[&#39;Pastis Xocolata&#39;, &#39;Gofre&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">receptes_ingredient</span><span class="p">(</span><span class="s1">&#39;Sucre&#39;</span><span class="p">)</span>
+<span class="go">[&#39;Gofre&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Receptari</span><span class="o">.</span><span class="n">receptes_ingredient</span><span class="p">(</span><span class="s1">&#39;Ous&#39;</span><span class="p">)</span>
+<span class="go">[]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Tema anterior</h4>
+  <p class="topless"><a href="recepta.html"
+                        title="capítol anterior">Mòdul <em>recepta</em></a></p>
+  <h4>Tema següent</h4>
+  <p class="topless"><a href="interpret.html"
+                        title="capítol següent">Mòdul <em>interpret</em></a></p>
+  <div role="note" aria-label="source link">
+    <h3>Aquesta Pàgina</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/receptari.rst.txt"
+            rel="nofollow">Mostra Codi Font</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Cerca ràpida</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Ves a" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegació</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Índex General"
+             >índex</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >mòduls</a> |</li>
+        <li class="right" >
+          <a href="interpret.html" title="Mòdul interpret"
+             >següent</a> |</li>
+        <li class="right" >
+          <a href="recepta.html" title="Mòdul recepta"
+             >anterior</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Receptari 1.01 documentació</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, D. Alamillo, M. Compte, A. Anhari.
+      Creat amb <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.
+    </div>
+  </body>
+</html>

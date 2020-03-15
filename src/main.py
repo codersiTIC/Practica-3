@@ -108,12 +108,19 @@ def printlist(ent = str(), nom = str()):
 
     else:
         print "Ordres i/o arguments no vàlids. Per més informació executi la comanda **help**"
+'''
 
+$ python main.py
+Traceback (most recent call last):
+  File "main.py", line 116, in <module>
+    i = Interpret(r.recupera, r.desa) #S
+AttributeError: 'Receptari' object has no attribute 'recupera' Això
+ok
+'''
 
 if __name__ == '__main__':
-
-    r = Receptari()
-    i = Interpret()
+    r = Receptari() # no sera el self.set_begin k sempre s'executa en el bucle?
+    i = Interpret(r.obre, r.desa) #A veure, potser si
     i.set_prompt('**')
 
     i.afegeix_ordre('producte', r.afegeix_producte)

@@ -1,0 +1,294 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ca">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>interpret &#8212; Receptari 1.01 documentació</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.01',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="index" title="Índex" href="../genindex.html" />
+    <link rel="search" title="Cerca" href="../search.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegació</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índex General"
+             accesskey="I">índex</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >mòduls</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Receptari 1.01 documentació</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for interpret</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Mòdul *interpret*</span>
+<span class="sd">=================</span>
+
+<span class="sd">Un objecte de la classe Interpret és un interpret d’ordres configurable (és</span>
+<span class="sd">necessari configurar-lo abans d&#39;utilitzar-lo, mitjançant la cració d&#39;ordres i la</span>
+<span class="sd">definició d&#39;un prompt).</span>
+
+<span class="sd">Les ordres que li configurem han d&#39;estar relacionades amb una funció específica,</span>
+<span class="sd">que indiqui que han de fer aquestes ordres del nostre interpret. La classe conté</span>
+<span class="sd">els següents atributs:</span>
+
+<span class="sd">prompt [str, Privat] Emmagatzema el prompt que usarà l’intèrpret.</span>
+
+<span class="sd">dcom [dict, Privat] Es el diccionari que emmagatzema les ordres conegudes per l’intèrpret.</span>
+<span class="sd">El diccionari emmagatzema una entrada per a cada ordre. Per a una ordre específica, la clau</span>
+<span class="sd">correspon amb el nom de l’ordre i el valor és la funció que implementa l’ordre.</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="kn">from</span> <span class="nn">receptari</span> <span class="kn">import</span><span class="o">*</span>
+<span class="kn">from</span> <span class="nn">main</span> <span class="kn">import</span> <span class="o">*</span>
+
+
+
+<div class="viewcode-block" id="Interpret"><a class="viewcode-back" href="../interpret.html#interpret.Interpret">[docs]</a><span class="k">class</span> <span class="nc">Interpret</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;docstring for Interpret</span>
+
+<span class="sd">        &gt;&gt;&gt; def c1(l): print &quot;executo l’ordre 1: {0}&quot;.format(l[0])</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; def c2(l): print &quot;executo l’ordre 2: {0}&quot;.format(l[0])</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; i = Interpret()</span>
+<span class="sd">        &gt;&gt;&gt; i.set_prompt(&quot;**&quot;)</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; i.afegeix_ordre(&quot;menja&quot;, c1)</span>
+<span class="sd">        &gt;&gt;&gt; i.afegeix_ordre(&quot;beu&quot;, c2)</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; i.run()</span>
+<span class="sd">        ∗∗ menja caramel</span>
+<span class="sd">        executo l’ordre 1: caramel</span>
+<span class="sd">        ∗∗ beu xocolata</span>
+<span class="sd">        executo l’ordre 2: xocolata</span>
+<span class="sd">        ∗∗ Surt</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">omega</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dcom</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_prompt</span> <span class="o">=</span> <span class="nb">str</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="n">alpha</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">omega</span> <span class="o">=</span> <span class="n">omega</span>
+
+
+<div class="viewcode-block" id="Interpret.set_begin"><a class="viewcode-back" href="../interpret.html#interpret.Interpret.set_begin">[docs]</a>    <span class="k">def</span> <span class="nf">set_begin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Fixa la funció &#39;f&#39; com l&#39;inicialitzador que es cridarà</span>
+<span class="sd">        just abans d&#39;arrencar l&#39;interpret. &#39;f&#39;  és una funció</span>
+<span class="sd">        sense paràmetres.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">f</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Interpret.set_end"><a class="viewcode-back" href="../interpret.html#interpret.Interpret.set_end">[docs]</a>    <span class="k">def</span> <span class="nf">set_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">f</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Fixa la funció &#39;f&#39; com el finalitzador que es cridarà</span>
+<span class="sd">        just abans d&#39;acabar l&#39;execució de l’intèrpret. ‘f‘ és una</span>
+<span class="sd">        funció sense paràmetres.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">f</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Interpret.set_prompt"><a class="viewcode-back" href="../interpret.html#interpret.Interpret.set_prompt">[docs]</a>    <span class="k">def</span> <span class="nf">set_prompt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">p</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Modificador. Canvia el prompt del propi intèrpret</span>
+
+<span class="sd">        :param p: El prompt que utilitzarà l&#39;intèrpret</span>
+<span class="sd">        :type p: str</span>
+
+<span class="sd">        &gt;&gt;&gt; set_prompt(&quot;**&quot;)</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_prompt</span> <span class="o">=</span> <span class="n">p</span></div>
+
+<div class="viewcode-block" id="Interpret.afegeix_ordre"><a class="viewcode-back" href="../interpret.html#interpret.Interpret.afegeix_ordre">[docs]</a>    <span class="k">def</span> <span class="nf">afegeix_ordre</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nomc</span><span class="p">,</span> <span class="n">ordre</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Modificador. Afegeix a l’intèrpret una ordre de nom nomc associada a la funció ordre. Si</span>
+<span class="sd">        ja existia una ordre amb aquest nom, es queixa. Noteu que el tercer paràmetre del mètode</span>
+<span class="sd">        és una funció!</span>
+<span class="sd">        La funció de nom ordre és una funció que té com a únic paràmetre una llista de strings.</span>
+
+<span class="sd">        :param nomc: El nom associat a la funció *ordre*</span>
+<span class="sd">        :type nomc: str</span>
+<span class="sd">        :param ordre: Una funció qualsevol **sense ser cridada amb ()**</span>
+<span class="sd">        :type ordre: funció</span>
+
+<span class="sd">        &gt;&gt;&gt; i = Interpret()</span>
+<span class="sd">        &gt;&gt;&gt; i.set_prompt(&quot;**&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; def eleva2(n): return n**2</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; afegeix_ordre(&quot;eleva&quot;, eleva2)</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; i.run()</span>
+<span class="sd">        ** eleva 10</span>
+<span class="sd">        100</span>
+<span class="sd">        ** eleva 4</span>
+<span class="sd">        16</span>
+<span class="sd">        ** surt</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dcom</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="n">nomc</span><span class="p">):</span>
+
+            <span class="k">return</span> <span class="s1">&#39;Failed. This command already exists&#39;</span>
+
+        <span class="k">else</span><span class="p">:</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_dcom</span><span class="p">[</span><span class="n">nomc</span><span class="p">]</span> <span class="o">=</span> <span class="n">ordre</span></div>
+
+
+<div class="viewcode-block" id="Interpret.run"><a class="viewcode-back" href="../interpret.html#interpret.Interpret.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Arrenca l’execució d’aquest intèrpret d’ordres. L’intèrpret s’executa indefinidament fins</span>
+<span class="sd">        que l’usuari escriu l’ordre surt.</span>
+<span class="sd">        quan tenim 3 argumnts pk estan arreve</span>
+<span class="sd">        A cada cicle d’interpretació, l’intèrpret escriu el prompt, llegeix un string del teclat, l’ana-</span>
+<span class="sd">        litza separant els mots que el formen. El primer mot considera que és un nom d’ordre i la</span>
+<span class="sd">        resta de mots els paràmetres d’aquesta ordre. Finalment executa la funció corresponent a</span>
+<span class="sd">        l’ordre i li passa com a paràmetre la resta de mots en una llista.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_begin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">)</span>
+
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+
+                <span class="nb">print</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prompt</span><span class="p">,</span>
+                <span class="n">p</span> <span class="o">=</span> <span class="n">raw_input</span><span class="p">()</span>
+                <span class="n">ll</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+                <span class="n">ordres</span> <span class="o">=</span> <span class="n">ll</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ordres</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                    <span class="n">ordres</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ordres</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">ordres</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">ordres</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">ordres</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ordres</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dcom</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="n">ll</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ordres</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_dcom</span><span class="p">[</span><span class="n">ll</span><span class="p">[</span><span class="mi">0</span><span class="p">]]()</span>
+
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_dcom</span><span class="p">[</span><span class="n">ll</span><span class="p">[</span><span class="mi">0</span><span class="p">]](</span><span class="o">*</span><span class="n">ordres</span><span class="p">)</span>
+
+                <span class="k">elif</span> <span class="n">ll</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;surt&#39;</span> <span class="ow">or</span> <span class="n">ll</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Surt&#39;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">set_end</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">omega</span><span class="p">)</span>
+                    <span class="k">break</span>
+
+                <span class="k">elif</span> <span class="n">ll</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;help&#39;</span> <span class="ow">or</span> <span class="n">ll</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Help&#39;</span><span class="p">:</span>
+                    <span class="nb">print</span>
+                    <span class="n">ll</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dcom</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+                    <span class="n">ll</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;surt&#39;</span><span class="p">);</span> <span class="n">ll</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;help&#39;</span><span class="p">)</span>
+                    <span class="n">ll</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">ll</span><span class="p">)</span>
+                    <span class="nb">print</span> <span class="n">ll</span>
+                    <span class="nb">print</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Ordres disponibles:</span><span class="se">\n</span><span class="s1">&#39;</span>
+                    <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">ll</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">element</span> <span class="o">==</span> <span class="s1">&#39;producte&#39;</span><span class="p">:</span>
+                            <span class="nb">print</span> <span class="s1">&#39; ** producte &lt;nom&gt; --&gt; Afegeix un producte al receptari de nom &lt;nom&gt; </span><span class="se">\n</span><span class="s1">&#39;</span>
+
+                        <span class="k">elif</span> <span class="n">element</span> <span class="o">==</span> <span class="s1">&#39;recepta&#39;</span><span class="p">:</span>
+                            <span class="nb">print</span> <span class="s1">&#39; ** recepta &lt;nom&gt; --&gt; Afegeix una recepta al receptari que té nom &lt;nom&gt; </span><span class="se">\n</span><span class="s1">&#39;</span>
+
+                        <span class="k">elif</span> <span class="n">element</span> <span class="o">==</span> <span class="s1">&#39;ingredient&#39;</span><span class="p">:</span>
+                            <span class="nb">print</span> <span class="s2">&quot; ** ingredient &lt;nomp&gt; &lt;nomr&gt; &lt;qua&gt; --&gt; Afegeix &lt;qua&gt; grams de l&#39;ingredient de&quot;</span>
+
+                            <span class="nb">print</span> <span class="s2">&quot;                                       nom &lt;nomp&gt; al la recepta &lt;nomr&gt; </span><span class="se">\n</span><span class="s2">&quot;</span>
+
+                        <span class="k">elif</span> <span class="n">element</span> <span class="o">==</span> <span class="s1">&#39;print&#39;</span><span class="p">:</span>
+                            <span class="nb">print</span> <span class="s2">&quot; ** print &lt;ent&gt; [&lt;nom&gt;] --&gt; Escriu per pantalla segons el valor de &lt;ent&gt;. Si&quot;</span>
+                            <span class="nb">print</span> <span class="s2">&quot;                            &lt;ent&gt; és: </span><span class="se">\n</span><span class="s2">&quot;</span>
+                            <span class="nb">print</span> <span class="s2">&quot;     ** receptes --&gt; Escriu la llista de noms de receptes del receptari </span><span class="se">\n</span><span class="s2">&quot;</span>
+                            <span class="nb">print</span> <span class="s2">&quot;     ** productes --&gt; Escriu la llista de noms de producte del receptari </span><span class="se">\n</span><span class="s2">&quot;</span>
+                            <span class="nb">print</span> <span class="s2">&quot;     ** recepta --&gt; Escriu els ingredients i la quantitat que intervenen en la&quot;</span>
+                            <span class="nb">print</span> <span class="s2">&quot;                    recepta de nom &lt;nom&gt;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                            <span class="nb">print</span> <span class="s2">&quot;     ** receptes-ing --&gt; Escriu la llista de noms de recepta en que participa&quot;</span>
+                            <span class="nb">print</span> <span class="s2">&quot;                       l’ingredient anomenat &lt;nom&gt; </span><span class="se">\n</span><span class="s2">&quot;</span>
+
+                        <span class="k">elif</span> <span class="n">element</span> <span class="o">==</span> <span class="s1">&#39;surt&#39;</span><span class="p">:</span>
+                            <span class="nb">print</span> <span class="s2">&quot; ** surt --&gt; Acaba l&#39;execució del programa&quot;</span>
+
+                        <span class="k">elif</span> <span class="n">element</span> <span class="o">==</span> <span class="s1">&#39;desa&#39;</span><span class="p">:</span>
+                            <span class="nb">print</span> <span class="s2">&quot; ** desa &lt;nomf&gt; --&gt; Desa les dades del receptari en un fitxer de nom &lt;nomf&gt; </span><span class="se">\n</span><span class="s2">&quot;</span>
+
+                        <span class="k">elif</span> <span class="n">element</span> <span class="o">==</span> <span class="s1">&#39;recupera&#39;</span><span class="p">:</span>
+                            <span class="nb">print</span> <span class="s2">&quot; ** recupera &lt;nomf&gt; --&gt; Recupera les dades del fitxer &lt;nomf&gt;. En cas que el&quot;</span>
+                            <span class="nb">print</span> <span class="s2">&quot;                        fitxer contingui productes o receptes que ja existeixen,&quot;</span>
+                            <span class="nb">print</span> <span class="s2">&quot;                        no les incorpora de nou i les ignora </span><span class="se">\n</span><span class="s2">&quot;</span>
+
+
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="nb">print</span> <span class="s2">&quot;Comanda no coneguda&quot;</span>
+
+                <span class="nb">print</span>
+
+            <span class="k">except</span><span class="p">:</span>
+                <span class="nb">print</span> <span class="s2">&quot;Ordres i/o arguments no vàlids. Per més informació executi la comanda **help**</span><span class="se">\n</span><span class="s2">&quot;</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Cerca ràpida</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Ves a" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegació</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índex General"
+             >índex</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >mòduls</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Receptari 1.01 documentació</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, D. Alamillo, M. Compte, A. Anhari.
+      Creat amb <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.
+    </div>
+  </body>
+</html>

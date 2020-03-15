@@ -48,12 +48,11 @@ class Interpret(object):
         ∗∗ Surt
         >>>
     """
-    def __init__(self):
+    def __init__(self, alpha, omega):
         self._dcom = dict()
         self._prompt = str()
-        self.alpha = self.set_begin
-        self.omega = self.set_end
-
+        self.alpha = alpha
+        self.omega = omega
 
 
     def set_begin(self, f):
@@ -62,7 +61,7 @@ class Interpret(object):
         just abans d'arrencar l'interpret. 'f'  és una funció
         sense paràmetres.
         '''
-        pass
+        f()
 
 
     def set_end(self,f):
@@ -71,9 +70,7 @@ class Interpret(object):
         just abans d'acabar l'execució de l’intèrpret. ‘f‘ és una
         funció sense paràmetres.
         '''
-        pass
-
-
+        f()
 
 
     def set_prompt(self,p):
@@ -123,7 +120,7 @@ class Interpret(object):
 
             self._dcom[nomc] = ordre
 
-    
+
     def run(self):
         '''
         Arrenca l’execució d’aquest intèrpret d’ordres. L’intèrpret s’executa indefinidament fins
@@ -134,9 +131,11 @@ class Interpret(object):
         resta de mots els paràmetres d’aquesta ordre. Finalment executa la funció corresponent a
         l’ordre i li passa com a paràmetre la resta de mots en una llista.
         '''
+        self.set_begin(self.alpha)
 
         while True:
             try:
+
                 print self._prompt,
                 p = raw_input()
                 ll = p.split()
@@ -154,6 +153,7 @@ class Interpret(object):
                         self._dcom[ll[0]](*ordres)
 
                 elif ll[0] == 'surt' or ll[0] == 'Surt':
+                    self.set_end(self.omega)
                     break
 
                 elif ll[0] == 'help' or ll[0] == 'Help':

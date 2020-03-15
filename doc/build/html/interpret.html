@@ -1,0 +1,232 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ca">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Mòdul interpret &#8212; Receptari 1.01 documentació</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.01',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="index" title="Índex" href="genindex.html" />
+    <link rel="search" title="Cerca" href="search.html" />
+    <link rel="next" title="Mòdul main" href="main.html" />
+    <link rel="prev" title="Module receptari" href="receptari.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegació</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Índex General"
+             accesskey="I">índex</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >mòduls</a> |</li>
+        <li class="right" >
+          <a href="main.html" title="Mòdul main"
+             accesskey="N">següent</a> |</li>
+        <li class="right" >
+          <a href="receptari.html" title="Module receptari"
+             accesskey="P">anterior</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Receptari 1.01 documentació</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <span class="target" id="module-interpret"></span><div class="section" id="modul-interpret">
+<h1>Mòdul <em>interpret</em><a class="headerlink" href="#modul-interpret" title="Link permanent a aquest títol">¶</a></h1>
+<p>Un objecte de la classe Interpret és un interpret d’ordres configurable (és
+necessari configurar-lo abans d’utilitzar-lo, mitjançant la cració d’ordres i la
+definició d’un prompt).</p>
+<p>Les ordres que li configurem han d’estar relacionades amb una funció específica,
+que indiqui que han de fer aquestes ordres del nostre interpret. La classe conté
+els següents atributs:</p>
+<p>prompt [str, Privat] Emmagatzema el prompt que usarà l’intèrpret.</p>
+<p>dcom [dict, Privat] Es el diccionari que emmagatzema les ordres conegudes per l’intèrpret.
+El diccionari emmagatzema una entrada per a cada ordre. Per a una ordre específica, la clau
+correspon amb el nom de l’ordre i el valor és la funció que implementa l’ordre.</p>
+<dl class="class">
+<dt id="interpret.Interpret">
+<em class="property">class </em><code class="descclassname">interpret.</code><code class="descname">Interpret</code><span class="sig-paren">(</span><em>alpha</em>, <em>omega</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/interpret.html#Interpret"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#interpret.Interpret" title="Link permanent a aquesta definició">¶</a></dt>
+<dd><p>docstring for Interpret</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">c1</span><span class="p">(</span><span class="n">l</span><span class="p">):</span> <span class="nb">print</span> <span class="s2">&quot;executo l’ordre 1: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">c2</span><span class="p">(</span><span class="n">l</span><span class="p">):</span> <span class="nb">print</span> <span class="s2">&quot;executo l’ordre 2: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span> <span class="o">=</span> <span class="n">Interpret</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span><span class="o">.</span><span class="n">set_prompt</span><span class="p">(</span><span class="s2">&quot;**&quot;</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span><span class="o">.</span><span class="n">afegeix_ordre</span><span class="p">(</span><span class="s2">&quot;menja&quot;</span><span class="p">,</span> <span class="n">c1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span><span class="o">.</span><span class="n">afegeix_ordre</span><span class="p">(</span><span class="s2">&quot;beu&quot;</span><span class="p">,</span> <span class="n">c2</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="go">∗∗ menja caramel</span>
+<span class="go">executo l’ordre 1: caramel</span>
+<span class="go">∗∗ beu xocolata</span>
+<span class="go">executo l’ordre 2: xocolata</span>
+<span class="go">∗∗ Surt</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="interpret.Interpret.afegeix_ordre">
+<code class="descname">afegeix_ordre</code><span class="sig-paren">(</span><em>nomc</em>, <em>ordre</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/interpret.html#Interpret.afegeix_ordre"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#interpret.Interpret.afegeix_ordre" title="Link permanent a aquesta definició">¶</a></dt>
+<dd><p>Modificador. Afegeix a l’intèrpret una ordre de nom nomc associada a la funció ordre. Si
+ja existia una ordre amb aquest nom, es queixa. Noteu que el tercer paràmetre del mètode
+és una funció!
+La funció de nom ordre és una funció que té com a únic paràmetre una llista de strings.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paràmetres:</th><td class="field-body"><ul class="first last simple">
+<li><strong>nomc</strong> (<em>str</em>) – El nom associat a la funció <em>ordre</em></li>
+<li><strong>ordre</strong> (<em>funció</em>) – Una funció qualsevol <strong>sense ser cridada amb ()</strong></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">i</span> <span class="o">=</span> <span class="n">Interpret</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span><span class="o">.</span><span class="n">set_prompt</span><span class="p">(</span><span class="s2">&quot;**&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">eleva2</span><span class="p">(</span><span class="n">n</span><span class="p">):</span> <span class="k">return</span> <span class="n">n</span><span class="o">**</span><span class="mi">2</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">afegeix_ordre</span><span class="p">(</span><span class="s2">&quot;eleva&quot;</span><span class="p">,</span> <span class="n">eleva2</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="go">** eleva 10</span>
+<span class="go">100</span>
+<span class="go">** eleva 4</span>
+<span class="go">16</span>
+<span class="go">** surt</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="interpret.Interpret.run">
+<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/interpret.html#Interpret.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#interpret.Interpret.run" title="Link permanent a aquesta definició">¶</a></dt>
+<dd><p>Arrenca l’execució d’aquest intèrpret d’ordres. L’intèrpret s’executa indefinidament fins
+que l’usuari escriu l’ordre surt.
+quan tenim 3 argumnts pk estan arreve
+A cada cicle d’interpretació, l’intèrpret escriu el prompt, llegeix un string del teclat, l’ana-
+litza separant els mots que el formen. El primer mot considera que és un nom d’ordre i la
+resta de mots els paràmetres d’aquesta ordre. Finalment executa la funció corresponent a
+l’ordre i li passa com a paràmetre la resta de mots en una llista.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="interpret.Interpret.set_begin">
+<code class="descname">set_begin</code><span class="sig-paren">(</span><em>f</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/interpret.html#Interpret.set_begin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#interpret.Interpret.set_begin" title="Link permanent a aquesta definició">¶</a></dt>
+<dd><p>Fixa la funció “f” com l’inicialitzador que es cridarà
+just abans d’arrencar l’interpret. “f”  és una funció
+sense paràmetres.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="interpret.Interpret.set_end">
+<code class="descname">set_end</code><span class="sig-paren">(</span><em>f</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/interpret.html#Interpret.set_end"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#interpret.Interpret.set_end" title="Link permanent a aquesta definició">¶</a></dt>
+<dd><p>Fixa la funció “f” com el finalitzador que es cridarà
+just abans d’acabar l’execució de l’intèrpret. ‘f‘ és una
+funció sense paràmetres.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="interpret.Interpret.set_prompt">
+<code class="descname">set_prompt</code><span class="sig-paren">(</span><em>p</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/interpret.html#Interpret.set_prompt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#interpret.Interpret.set_prompt" title="Link permanent a aquesta definició">¶</a></dt>
+<dd><p>Modificador. Canvia el prompt del propi intèrpret</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paràmetres:</th><td class="field-body"><strong>p</strong> (<em>str</em>) – El prompt que utilitzarà l’intèrpret</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">set_prompt</span><span class="p">(</span><span class="s2">&quot;**&quot;</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Tema anterior</h4>
+  <p class="topless"><a href="receptari.html"
+                        title="capítol anterior">Module <em>receptari</em></a></p>
+  <h4>Tema següent</h4>
+  <p class="topless"><a href="main.html"
+                        title="capítol següent">Mòdul <em>main</em></a></p>
+  <div role="note" aria-label="source link">
+    <h3>Aquesta Pàgina</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/interpret.rst.txt"
+            rel="nofollow">Mostra Codi Font</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Cerca ràpida</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Ves a" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegació</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Índex General"
+             >índex</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >mòduls</a> |</li>
+        <li class="right" >
+          <a href="main.html" title="Mòdul main"
+             >següent</a> |</li>
+        <li class="right" >
+          <a href="receptari.html" title="Module receptari"
+             >anterior</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Receptari 1.01 documentació</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, D. Alamillo, M. Compte, A. Anhari.
+      Creat amb <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.
+    </div>
+  </body>
+</html>
