@@ -60,6 +60,9 @@ class Interpret(object):
         Fixa la funció 'f' com l'inicialitzador que es cridarà
         just abans d'arrencar l'interpret. 'f'  és una funció
         sense paràmetres.
+
+        :param f: Funció a cridar a l'inici del mètode **run** de l'interpret
+        :type f: funció
         '''
         f()
 
@@ -69,6 +72,9 @@ class Interpret(object):
         Fixa la funció 'f' com el finalitzador que es cridarà
         just abans d'acabar l'execució de l’intèrpret. ‘f‘ és una
         funció sense paràmetres.
+
+        :param f: Funció a cridar al final del mètode **run** de l'interpret
+        :type f: funció
         '''
         f()
 
@@ -113,11 +119,9 @@ class Interpret(object):
         '''
 
         if self._dcom.has_key(nomc):
-
-            return 'Failed. This command already exists'
+            return 'Error: Aquesta ordre ja existeix'
 
         else:
-
             self._dcom[nomc] = ordre
 
 
@@ -131,6 +135,7 @@ class Interpret(object):
         resta de mots els paràmetres d’aquesta ordre. Finalment executa la funció corresponent a
         l’ordre i li passa com a paràmetre la resta de mots en una llista.
         '''
+
         self.set_begin(self.alpha)
 
         while True:

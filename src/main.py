@@ -44,32 +44,6 @@ print <ent> [<nom>]
     Acaba l’execució del programa.
 '''
 
-
-
-'''
-AIXO VA PERFCTE, EL K PODREM fer es k al recuperar ho buidi tot o es mala idea?
-** recupera prova2
-
-** print receptes
-pa-tom
-pa-oli
-gofre
-
-** print productes
-ous
-oli
-pa
-tomàquet
-llet
-
-** print recepta gofre
-100g llet
-50g ous
-
-**  pero aixó ja tira yeeeeeeeeeeh
-'''
-
-
 from receptari import*
 from interpret import*
 
@@ -108,19 +82,11 @@ def printlist(ent = str(), nom = str()):
 
     else:
         print "Ordres i/o arguments no vàlids. Per més informació executi la comanda **help**"
-'''
 
-$ python main.py
-Traceback (most recent call last):
-  File "main.py", line 116, in <module>
-    i = Interpret(r.recupera, r.desa) #S
-AttributeError: 'Receptari' object has no attribute 'recupera' Això
-ok
-'''
 
 if __name__ == '__main__':
-    r = Receptari() # no sera el self.set_begin k sempre s'executa en el bucle?
-    i = Interpret(r.obre, r.desa) #A veure, potser si
+    r = Receptari()
+    i = Interpret(r.obre, r.desa)
     i.set_prompt('**')
 
     i.afegeix_ordre('producte', r.afegeix_producte)

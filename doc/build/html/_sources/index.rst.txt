@@ -17,7 +17,6 @@ Documentació Pràctica-2
    recepta
    receptari
    interpret
-   main
 
 Índex i taula de móduls
 =======================

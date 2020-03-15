@@ -1,0 +1,127 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ca">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>producte &#8212; Receptari 1.01 documentació</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.01',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="index" title="Índex" href="../genindex.html" />
+    <link rel="search" title="Cerca" href="../search.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegació</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índex General"
+             accesskey="I">índex</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >mòduls</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Receptari 1.01 documentació</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for producte</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Mòdul *producte*</span>
+<span class="sd">=================</span>
+
+<span class="sd">La classe *Producte* s&#39;encarrega de definir aquests nous tipus d&#39;objectes,</span>
+<span class="sd">utilitzats als següents mòduls. Són les peces essencials d&#39;aquest exercici </span>
+<span class="sd">(sense productes no hi hauria receptes ni, evidentment, receptari). </span>
+
+<span class="sd">Únicament conté un atribut, *self.producte*, corresponent al nom del producte</span>
+<span class="sd">(representat com a *string*). </span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<div class="viewcode-block" id="Producte"><a class="viewcode-back" href="../producte.html#producte.Producte">[docs]</a><span class="k">class</span> <span class="nc">Producte</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    docstring for Product.</span>
+
+<span class="sd">    &gt;&gt;&gt; Producte(&#39;orange&#39;).producte</span>
+<span class="sd">    &#39;orange&#39;</span>
+<span class="sd">    &gt;&gt;&gt; Producte(&#39;BanAna&#39;).producte</span>
+<span class="sd">    &#39;BanAna&#39;</span>
+<span class="sd">    &gt;&gt;&gt; Producte(&#39;salt&#39;).producte</span>
+<span class="sd">    &#39;salt&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">producte</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">producte</span> <span class="o">=</span> <span class="n">producte</span></div>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+
+    <span class="nb">print</span> <span class="n">Producte</span><span class="p">(</span><span class="s1">&#39;lemon&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">producte</span>
+
+    <span class="n">p</span> <span class="o">=</span> <span class="n">Producte</span><span class="p">(</span><span class="s1">&#39;lemon&#39;</span><span class="p">)</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">Producte</span><span class="p">(</span><span class="s1">&#39;banana&#39;</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">Producte</span><span class="p">(</span><span class="s1">&#39;fanta&#39;</span><span class="p">)</span>
+
+    <span class="nb">print</span> <span class="n">q</span><span class="o">.</span><span class="n">producte</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">producte</span><span class="p">,</span> <span class="n">n</span><span class="o">.</span><span class="n">producte</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Cerca ràpida</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Ves a" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegació</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índex General"
+             >índex</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >mòduls</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Receptari 1.01 documentació</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, D. Alamillo, M. Compte, A. Anhari.
+      Creat amb <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.
+    </div>
+  </body>
+</html>

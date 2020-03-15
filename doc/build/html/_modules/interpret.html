@@ -108,6 +108,9 @@
 <span class="sd">        Fixa la funció &#39;f&#39; com l&#39;inicialitzador que es cridarà</span>
 <span class="sd">        just abans d&#39;arrencar l&#39;interpret. &#39;f&#39;  és una funció</span>
 <span class="sd">        sense paràmetres.</span>
+
+<span class="sd">        :param f: Funció a cridar a l&#39;inici del mètode **run** de l&#39;interpret</span>
+<span class="sd">        :type f: funció</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">f</span><span class="p">()</span></div>
 
@@ -117,6 +120,9 @@
 <span class="sd">        Fixa la funció &#39;f&#39; com el finalitzador que es cridarà</span>
 <span class="sd">        just abans d&#39;acabar l&#39;execució de l’intèrpret. ‘f‘ és una</span>
 <span class="sd">        funció sense paràmetres.</span>
+
+<span class="sd">        :param f: Funció a cridar al final del mètode **run** de l&#39;interpret</span>
+<span class="sd">        :type f: funció</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">f</span><span class="p">()</span></div>
 
@@ -161,11 +167,9 @@
 <span class="sd">        &#39;&#39;&#39;</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dcom</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="n">nomc</span><span class="p">):</span>
-
-            <span class="k">return</span> <span class="s1">&#39;Failed. This command already exists&#39;</span>
+            <span class="k">return</span> <span class="s1">&#39;Error: Aquesta ordre ja existeix&#39;</span>
 
         <span class="k">else</span><span class="p">:</span>
-
             <span class="bp">self</span><span class="o">.</span><span class="n">_dcom</span><span class="p">[</span><span class="n">nomc</span><span class="p">]</span> <span class="o">=</span> <span class="n">ordre</span></div>
 
 
@@ -179,6 +183,7 @@
 <span class="sd">        resta de mots els paràmetres d’aquesta ordre. Finalment executa la funció corresponent a</span>
 <span class="sd">        l’ordre i li passa com a paràmetre la resta de mots en una llista.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">set_begin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">)</span>
 
         <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>

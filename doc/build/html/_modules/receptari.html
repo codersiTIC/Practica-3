@@ -298,7 +298,8 @@
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Desa les dades en el fitxer de text de nom ⟨f⟩.</span>
 
-<span class="sd">        :param f: Iniciament no val res</span>
+<span class="sd">        :param f: Nom del fitxer al qual volem guardar les dades. Si no s&#39;introdueix cap nom, el mètode guardarà les dades a un arxiu de nom **&#39;prova.txt&#39;** (que, si no existeix, es crearà automàticament).</span>
+<span class="sd">        :type f: string</span>
 <span class="sd">        &#39;&#39;&#39;</span>
 
         <span class="k">if</span> <span class="n">f</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
@@ -331,11 +332,13 @@
 
 <div class="viewcode-block" id="Receptari.obre"><a class="viewcode-back" href="../receptari.html#receptari.Receptari.obre">[docs]</a>    <span class="k">def</span> <span class="nf">obre</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Recupera les dades del fitxer de text de nom ⟨nomf⟩.</span>
+<span class="sd">        Recupera les dades del fitxer de text de nom ⟨f⟩.</span>
 <span class="sd">        En cas que el fitxer contingui productes o receptes que ja existien,</span>
 <span class="sd">        no les incorpora de nou i les ignora.</span>
 
-<span class="sd">        :param f: Nom del fitxer &lt;nomf&gt; del</span>
+<span class="sd">        :param f: Nom del fitxer del que volem recuperar les dades. Si no s&#39;introdueix cap nom, el mètode obrirà un arxiu de nom **&#39;prova.txt&#39;**, si existeix, sinó es partirà d&#39;un receptari buit fins que l&#39;usuari surti de la sessió.</span>
+<span class="sd">        :type f: string</span>
+
 <span class="sd">        &#39;&#39;&#39;</span>
 
         <span class="k">if</span> <span class="n">f</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>

@@ -248,9 +248,10 @@ class Receptari(object):
 
     def desa (self, f = None):
         '''
-        Desa les dades en el fitxer de text de nom ⟨nof⟩.
+        Desa les dades en el fitxer de text de nom ⟨f⟩.
 
-        :param f: Iniciament no val res
+        :param f: Nom del fitxer al qual volem guardar les dades. Si no s'introdueix cap nom, el mètode guardarà les dades a un arxiu de nom **'prova.txt'** (que, si no existeix, es crearà automàticament).
+        :type f: string
         '''
 
         if f == None:
@@ -283,11 +284,11 @@ class Receptari(object):
 
     def obre(self, f = None):
         '''
-        Recupera les dades del fitxer de text de nom ⟨nomf⟩.
+        Recupera les dades del fitxer de text de nom ⟨f⟩.
         En cas que el fitxer contingui productes o receptes que ja existien,
         no les incorpora de nou i les ignora.
 
-        :param f: Nom del fitxer <nomf> del que volem recuperar les dades. Si no s'introdueix cap nom, el mètode obrirà un arxiu de nom 'prova.txt', si existeix.
+        :param f: Nom del fitxer del que volem recuperar les dades. Si no s'introdueix cap nom, el mètode obrirà un arxiu de nom **'prova.txt'**, si existeix, sinó es partirà d'un receptari buit fins que l'usuari surti de la sessió.
         :type f: string
 
         '''
