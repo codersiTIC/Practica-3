@@ -83,10 +83,9 @@ def printlist(ent = str(), nom = str()):
     else:
         print "Ordres i/o arguments no vàlids. Per més informació executi la comanda **help**"
 
-
 if __name__ == '__main__':
     r = Receptari()
-    i = Interpret(r.obre, r.desa)
+    i = Interpret()
     i.set_prompt('**')
 
     i.afegeix_ordre('producte', r.afegeix_producte)
@@ -97,6 +96,9 @@ if __name__ == '__main__':
     i.afegeix_ordre('desa', r.desa)
     i.afegeix_ordre('recupera', r.obre)
 
-    print "Recorda consultar el menu d'ajuda amb la comanda **help** per qualsevol dubte"
+    print "Recorda consultar el menu d'ajuda amb la comanda **help** qualsevol dubte"
     print
+
+    i.set_begin(r.obre)
+    i.set_end(r.desa)
     i.run()

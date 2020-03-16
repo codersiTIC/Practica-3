@@ -1,25 +1,24 @@
+olives
 llet
 oli
 tomàquet
 pa
-carn
 ous
 @@
-brassa
-carn 1500
+pa-oliv
+olives 300
 @@
 pa-tom
 pa 250
 tomàquet 40
 oli 10
 @@
-gofre
-llet 100
-ous 50
-@@
 pa-oli
 pa 250
 oli 10
-llet 500
+@@
+gofre
+llet 100
+ous 50
 @@
 @@

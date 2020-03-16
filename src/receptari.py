@@ -327,25 +327,25 @@ class Receptari(object):
                         if producte in self.ingredients():
                             pass
 
-                        else: # aqui si k fa falta , ok PERFECTE
+                        else:
                             self.afegeix_producte(producte)
 
                 else:
                     c = 0
                     for recepta in i:
 
-                        if c == 0: # afegir recepta
+                        if c == 0: # Afegir recepta
                             nomr = recepta
 
                             if nomr in self.receptes():
                                 break
 
-                            self.afegeix_recepta(nomr) #ben be nose si esta eh la funcio desa -- marcel
+                            self.afegeix_recepta(nomr)
 
-                        else: # afegir ingredients recepta
-                            r_ing = recepta.split(' ') # [producte, quantitat] no ha sigut tan llarg al final xdd ja xd
-                            self.afegeix_ingredient_recepta(nomr, r_ing[0], int(r_ing[1])) #Okay, crec que ja tira, he creat una recepta que es deia pa-tom
-                            #I he recuperat prova, i no m'ha modificat pa-tom. Està perfecte crec.
+                        else: # Afegir ingredients recepta
+                            r_ing = recepta.split(' ')
+                            self.afegeix_ingredient_recepta(nomr, r_ing[0], int(r_ing[1]))
+
 
                         c += 1
                 j += 1

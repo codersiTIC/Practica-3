@@ -48,11 +48,12 @@ class Interpret(object):
         ∗∗ Surt
         >>>
     """
-    def __init__(self, alpha, omega):
+
+    def __init__(self):
         self._dcom = dict()
         self._prompt = str()
-        self.alpha = alpha
-        self.omega = omega
+        self.alpha = None
+        self.omega = None
 
 
     def set_begin(self, f):
@@ -64,7 +65,9 @@ class Interpret(object):
         :param f: Funció a cridar a l'inici del mètode **run** de l'interpret
         :type f: funció
         '''
-        f()
+
+        self.alpha = f
+
 
 
     def set_end(self,f):
@@ -76,7 +79,8 @@ class Interpret(object):
         :param f: Funció a cridar al final del mètode **run** de l'interpret
         :type f: funció
         '''
-        f()
+
+        self.omega = f
 
 
     def set_prompt(self,p):
@@ -89,7 +93,9 @@ class Interpret(object):
         >>> set_prompt("**")
         >>>
         '''
+
         self._prompt = p
+
 
     def afegeix_ordre(self, nomc, ordre):
         '''
@@ -136,7 +142,7 @@ class Interpret(object):
         l’ordre i li passa com a paràmetre la resta de mots en una llista.
         '''
 
-        self.set_begin(self.alpha)
+        self.alpha()
 
         while True:
             try:
@@ -158,7 +164,7 @@ class Interpret(object):
                         self._dcom[ll[0]](*ordres)
 
                 elif ll[0] == 'surt' or ll[0] == 'Surt':
-                    self.set_end(self.omega)
+                    self.omega()
                     break
 
                 elif ll[0] == 'help' or ll[0] == 'Help':
@@ -166,7 +172,6 @@ class Interpret(object):
                     ll = self._dcom.keys()
                     ll.append('surt'); ll.append('help')
                     ll = sorted(ll)
-                    print ll
                     print '\nOrdres disponibles:\n'
                     for element in ll:
                         if element == 'producte':
